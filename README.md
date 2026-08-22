@@ -4,13 +4,15 @@
 
 ## 为什么需要它
 
-一次截图小测只能说明一个样本。可靠选型至少要固定五件事：
+一次截图小测只能说明一个样本。可靠选型至少要固定七件事：
 
 1. 同一份版本化语料；
 2. 同一份输出 Schema；
 3. 人工确认的标准事实与原文证据；
 4. 确定性质量评分；
 5. 模型版本、时延、Token 和成本证据。
+6. 由真实任务占比得到的场景权重，而不是由样本数量暗中决定权重；
+7. PDF、多图、低清、双语和视觉审查等覆盖门禁。
 
 本项目把事实准确性、完整性、证据定位和结构合规作为主分。AI 裁判是可选项、匿名化，且权重不得超过 25%。成本和时延不混入质量分：先过质量门槛，再比较效率。
 
@@ -26,6 +28,14 @@ docbench examples/material-analysis/suite.yaml --output reports/demo.json
 ```
 
 仓库自带的是脱敏合成材料和已捕获响应，用来验证评测机制，不代表任何真实模型的能力。
+
+先校验代表性工作负载，不调用任何模型：
+
+```bash
+docbench benchmarks/enterprise-workload-v1/suite.yaml --validate-only
+```
+
+这个 v1 套件包含 12 个合成任务、2 份多页 PDF、5 个多资产任务和 7 个加权业务场景。它会在 PDF、多图、双语、低清、视觉审查或证据任务占比不足时直接拒绝运行。详见 [enterprise workload v1](benchmarks/enterprise-workload-v1/README.md)。
 
 ## 接入真实模型
 
@@ -63,7 +73,7 @@ docbench path/to/live-suite.yaml \
 
 离线重评分只支持确定性评分套件；包含 AI 裁判的套件必须完整重跑。
 
-也可以把复杂的 OCR、版面分析、PDF 拆页或多模型组合封装成内部 HTTP Adapter。Adapter 接收统一材料包，返回：
+也可以把复杂的 OCR、版面分析、PDF 拆页或多模型组合封装成内部 HTTP Adapter。Adapter 接收统一 `assets[]` 材料包（图片、PDF 或多文件），返回：
 
 ```json
 {
@@ -87,11 +97,13 @@ docbench path/to/live-suite.yaml \
 - `suite.yaml`：案例、候选、权重和可选裁判；
 - `output.schema.json`：所有候选必须遵守的输出结构；
 - `facts`：字段路径、标准值、允许误差、证据页和证据文本；
+- `workload_profile.lanes`：按业务任务分布加权；每个 lane 内先汇总，再按 lane 权重计算总分，避免多放某类样本就改变业务权重；
+- `coverage_gates`：最低 PDF、多资产和关键标签占比；
 - `version`：候选链路的不可变版本；
 - `suite_digest / input_digest / output_digest`：防止不同语料或输出被混为一轮；
 - 报告默认不保存原图和模型原文，只保存评分与摘要证据。
 
-推荐至少覆盖清晰表格、复杂版面、多页材料、图表、流程图、低清扫描、手写批注、歧义和缺失字段。关键字段应设为零容忍 Gate；不要用一个总平均分掩盖致命错误。
+推荐至少覆盖清晰表格、复杂版面、多页材料、图表、流程图、低清扫描、手写批注、歧义和缺失字段。关键字段应设为零容忍 Gate；不要用一个总平均分掩盖致命错误。报告会明确返回 `selection_ready: false` 及阻塞项；单轮合成结果只能验证机制，不能直接触发生产替换。
 
 ## 安全边界
 
@@ -99,7 +111,7 @@ docbench path/to/live-suite.yaml \
 
 ## 当前边界
 
-- 当前内建 live adapter 处理单张图片；PDF 最佳实践是将“原生 PDF”与“统一拆页成图片”作为两个不同候选链路评测。
+- 当前 OpenAI 兼容 live adapter 支持一张或多张图片；PDF 必须通过支持原生 PDF 的内部 HTTP pipeline adapter。应把“原生 PDF”与“统一拆页成图片”作为两个不同候选链路评测。
 - 合成样本只验证机制；真实选型需要客户授权语料、人类标准答案和复核一致性。
 - 本项目不给模型厂商做静态排名，结论只对具体 suite、模型版本和调用参数有效。
 

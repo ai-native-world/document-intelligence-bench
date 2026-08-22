@@ -1,0 +1,382 @@
+{
+  "cases": {
+    "supplier-commercial": {
+      "model_version": "synthetic-reference@1",
+      "output": {
+        "fields": {
+          "supplier": {
+            "name": "北辰精工",
+            "model": "MX-420",
+            "total_cny": 318000
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "supplier",
+            "source_ref": "page-1",
+            "quote": "供应商：北辰精工"
+          },
+          {
+            "fact_id": "model",
+            "source_ref": "page-2",
+            "quote": "设备型号：MX-420"
+          },
+          {
+            "fact_id": "total",
+            "source_ref": "page-2",
+            "quote": "含税总价：人民币 318,000 元"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1000,
+        "output_tokens": 200,
+        "cost_usd": 0.01
+      },
+      "latency_ms": 1000
+    },
+    "procurement-cross-image": {
+      "model_version": "synthetic-reference@1",
+      "output": {
+        "fields": {
+          "procurement": {
+            "quantity": 12,
+            "delivery_date": "2026-09-15"
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "quantity",
+            "source_ref": "asset-1",
+            "quote": "数量：12 台"
+          },
+          {
+            "fact_id": "delivery",
+            "source_ref": "asset-2",
+            "quote": "交付日期：2026-09-15"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1000,
+        "output_tokens": 200,
+        "cost_usd": 0.01
+      },
+      "latency_ms": 1000
+    },
+    "invoice-low-quality": {
+      "model_version": "synthetic-reference@1",
+      "output": {
+        "fields": {
+          "invoice": {
+            "number": "INV-260822-07",
+            "total_cny": 84520
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "invoice-no",
+            "source_ref": "asset-1",
+            "quote": "发票号码：INV-260822-07"
+          },
+          {
+            "fact_id": "invoice-total",
+            "source_ref": "asset-1",
+            "quote": "价税合计：¥84,520.00"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1000,
+        "output_tokens": 200,
+        "cost_usd": 0.01
+      },
+      "latency_ms": 1000
+    },
+    "support-chat": {
+      "model_version": "synthetic-reference@1",
+      "output": {
+        "fields": {
+          "incident": {
+            "ticket": "CS-8841",
+            "root_cause": "上游超时"
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "ticket",
+            "source_ref": "asset-1",
+            "quote": "工单 CS-8841"
+          },
+          {
+            "fact_id": "root-cause",
+            "source_ref": "asset-2",
+            "quote": "根因是上游超时"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1000,
+        "output_tokens": 200,
+        "cost_usd": 0.01
+      },
+      "latency_ms": 1000
+    },
+    "supplier-risk": {
+      "model_version": "synthetic-reference@1",
+      "output": {
+        "fields": {
+          "risk": {
+            "warranty_months": 24,
+            "sla_hours": 4,
+            "approval_status": "待法务复核"
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "warranty",
+            "source_ref": "page-3",
+            "quote": "质保期：24 个月"
+          },
+          {
+            "fact_id": "sla",
+            "source_ref": "page-3",
+            "quote": "Service response SLA: 4 hours"
+          },
+          {
+            "fact_id": "approval",
+            "source_ref": "page-4",
+            "quote": "审批状态：待法务复核"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1000,
+        "output_tokens": 200,
+        "cost_usd": 0.01
+      },
+      "latency_ms": 1000
+    },
+    "regional-sales": {
+      "model_version": "synthetic-reference@1",
+      "output": {
+        "fields": {
+          "sales": {
+            "top_region": "华东",
+            "total": 290
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "top-region",
+            "source_ref": "asset-2",
+            "quote": "最高：华东 92 万元"
+          },
+          {
+            "fact_id": "total-sales",
+            "source_ref": "asset-2",
+            "quote": "四区合计：290 万元"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1000,
+        "output_tokens": 200,
+        "cost_usd": 0.01
+      },
+      "latency_ms": 1000
+    },
+    "analysis-flow": {
+      "model_version": "synthetic-reference@1",
+      "output": {
+        "fields": {
+          "flow": {
+            "trigger": "关键字段缺失",
+            "normal_output": "生成客户调研摘要"
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "trigger",
+            "source_ref": "asset-1",
+            "quote": "关键字段缺失？"
+          },
+          {
+            "fact_id": "normal-output",
+            "source_ref": "asset-1",
+            "quote": "生成客户调研摘要"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1000,
+        "output_tokens": 200,
+        "cost_usd": 0.01
+      },
+      "latency_ms": 1000
+    },
+    "campaign-deck": {
+      "model_version": "synthetic-reference@1",
+      "output": {
+        "fields": {
+          "deck": {
+            "price_page_3": 2999,
+            "price_page_4": 3299,
+            "cta_contrast_ratio": 2.1
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "price-page-3",
+            "source_ref": "page-3",
+            "quote": "Launch price: ¥2,999 / month"
+          },
+          {
+            "fact_id": "price-page-4",
+            "source_ref": "page-4",
+            "quote": "Launch price: ¥3,299 / month"
+          },
+          {
+            "fact_id": "cta-contrast",
+            "source_ref": "page-5",
+            "quote": "CTA contrast ratio: 2.1:1"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1000,
+        "output_tokens": 200,
+        "cost_usd": 0.01
+      },
+      "latency_ms": 1000
+    },
+    "ui-regression": {
+      "model_version": "synthetic-reference@1",
+      "output": {
+        "fields": {
+          "ui": {
+            "price_before": 2999,
+            "price_after": 3299,
+            "button_clipped": true
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "price-before",
+            "source_ref": "asset-1",
+            "quote": "Price: ¥2,999 / month"
+          },
+          {
+            "fact_id": "price-after",
+            "source_ref": "asset-2",
+            "quote": "Price: ¥3,299 / month"
+          },
+          {
+            "fact_id": "button-clipped",
+            "source_ref": "asset-2",
+            "quote": "Button clipped: Confirm Purc..."
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1000,
+        "output_tokens": 200,
+        "cost_usd": 0.01
+      },
+      "latency_ms": 1000
+    },
+    "warehouse-scene": {
+      "model_version": "synthetic-reference@1",
+      "output": {
+        "fields": {
+          "warehouse": {
+            "zone": "B-3",
+            "pallet_count": 18
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "zone",
+            "source_ref": "asset-1",
+            "quote": "Zone: B-3"
+          },
+          {
+            "fact_id": "pallets",
+            "source_ref": "asset-1",
+            "quote": "Pallet count: 18"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1000,
+        "output_tokens": 200,
+        "cost_usd": 0.01
+      },
+      "latency_ms": 1000
+    },
+    "product-inspection": {
+      "model_version": "synthetic-reference@1",
+      "output": {
+        "fields": {
+          "product": {
+            "serial": "SN-884210",
+            "damage": "left-panel-dent"
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "serial",
+            "source_ref": "asset-1",
+            "quote": "Serial: SN-884210"
+          },
+          {
+            "fact_id": "damage",
+            "source_ref": "asset-2",
+            "quote": "dent on left panel"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1000,
+        "output_tokens": 200,
+        "cost_usd": 0.01
+      },
+      "latency_ms": 1000
+    },
+    "conflicting-dates": {
+      "model_version": "synthetic-reference@1",
+      "output": {
+        "fields": {
+          "schedule": {
+            "decision": "requires-human"
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "decision",
+            "source_ref": "asset-1",
+            "quote": "日期冲突，需人工确认"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1000,
+        "output_tokens": 200,
+        "cost_usd": 0.01
+      },
+      "latency_ms": 1000
+    }
+  }
+}

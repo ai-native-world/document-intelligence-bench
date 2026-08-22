@@ -25,10 +25,19 @@ def main() -> int:
         type=Path,
         help="Reapply deterministic scoring to a prior report created with --include-outputs",
     )
+    parser.add_argument(
+        "--validate-only",
+        action="store_true",
+        help="Validate schema, assets and workload coverage without calling candidates",
+    )
     args = parser.parse_args()
     try:
         runner = BenchmarkRunner()
-        if args.rescore_report:
+        if args.validate_only and args.rescore_report:
+            raise BenchmarkError("--validate-only and --rescore-report cannot be combined")
+        if args.validate_only:
+            report = runner.validate(args.suite)
+        elif args.rescore_report:
             source_report = json.loads(args.rescore_report.read_text(encoding="utf-8"))
             report = runner.rescore(args.suite, source_report, include_outputs=args.include_outputs)
         else:
@@ -46,4 +55,6 @@ def main() -> int:
         args.output.write_text(rendered + "\n", encoding="utf-8")
     else:
         print(rendered)
+    if args.validate_only:
+        return 0
     return 0 if report.get("quality_leaders") else 1

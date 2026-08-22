@@ -5,7 +5,7 @@
   "type": "object",
   "required": ["schema_version", "kind", "id", "name", "output_schema", "cases", "candidates", "rubric"],
   "properties": {
-    "schema_version": { "const": "0.1" },
+    "schema_version": { "enum": ["0.1", "0.2"] },
     "kind": { "const": "benchmark-suite" },
     "id": { "$ref": "#/$defs/identifier" },
     "name": { "$ref": "#/$defs/human_text" },
@@ -21,6 +21,8 @@
       "items": { "$ref": "#/$defs/candidate" }
     },
     "rubric": { "$ref": "#/$defs/rubric" },
+    "corpus_policy": { "enum": ["synthetic", "approved-real"] },
+    "workload_profile": { "$ref": "#/$defs/workload_profile" },
     "judge": { "$ref": "#/$defs/judge" }
   },
   "additionalProperties": false,
@@ -38,6 +40,19 @@
       "type": "string",
       "minLength": 1,
       "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "tag": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,63}$"
+    },
+    "asset": {
+      "type": "object",
+      "required": ["path", "media_type"],
+      "properties": {
+        "path": { "$ref": "#/$defs/local_path" },
+        "media_type": { "type": "string", "pattern": "^[a-z0-9.+-]+/[a-z0-9.+-]+$" }
+      },
+      "additionalProperties": false
     },
     "fact": {
       "type": "object",
@@ -60,17 +75,24 @@
     },
     "case": {
       "type": "object",
-      "required": ["id", "name", "weight", "asset", "media_type", "instructions", "facts"],
+      "required": ["id", "name", "weight", "instructions", "facts"],
       "properties": {
         "id": { "$ref": "#/$defs/identifier" },
         "name": { "$ref": "#/$defs/human_text" },
         "weight": { "type": "number", "exclusiveMinimum": 0 },
         "asset": { "$ref": "#/$defs/local_path" },
         "media_type": { "type": "string", "pattern": "^[a-z0-9.+-]+/[a-z0-9.+-]+$" },
+        "assets": { "type": "array", "minItems": 1, "maxItems": 20, "items": { "$ref": "#/$defs/asset" } },
+        "lane": { "$ref": "#/$defs/identifier" },
+        "tags": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/tag" } },
         "instructions": { "$ref": "#/$defs/human_text" },
         "facts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/fact" } }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "oneOf": [
+        { "required": ["asset", "media_type"], "not": { "required": ["assets"] } },
+        { "required": ["assets"], "not": { "anyOf": [{ "required": ["asset"] }, { "required": ["media_type"] }] } }
+      ]
     },
     "candidate": {
       "type": "object",
@@ -137,6 +159,44 @@
           "items": { "$ref": "#/$defs/human_text" }
         },
         "timeout_seconds": { "type": "number", "exclusiveMinimum": 0, "maximum": 600 }
+      },
+      "additionalProperties": false
+    },
+    "workload_lane": {
+      "type": "object",
+      "required": ["id", "name", "weight", "min_cases"],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "name": { "$ref": "#/$defs/human_text" },
+        "weight": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "min_cases": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "coverage_gates": {
+      "type": "object",
+      "properties": {
+        "min_pdf_case_share": { "type": "number", "minimum": 0, "maximum": 1 },
+        "min_multi_asset_case_share": { "type": "number", "minimum": 0, "maximum": 1 },
+        "required_tag_shares": {
+          "type": "object",
+          "propertyNames": { "$ref": "#/$defs/tag" },
+          "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "workload_profile": {
+      "type": "object",
+      "required": ["lanes", "coverage_gates"],
+      "properties": {
+        "lanes": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/workload_lane" } },
+        "coverage_gates": { "$ref": "#/$defs/coverage_gates" },
+        "human_review_lanes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/identifier" }
+        }
       },
       "additionalProperties": false
     }

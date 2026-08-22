@@ -1,0 +1,1056 @@
+{
+  "schema_version": "0.1",
+  "kind": "benchmark-report",
+  "suite_id": "enterprise-workload-v1",
+  "suite_digest": "b75152b6c672e14db105b3e2a496a98f03d2de8c765154ca34124a1f59c714e8",
+  "generated_at": "2026-08-22T05:16:28.306045Z",
+  "quality_winner": "reference-pipeline",
+  "quality_leaders": [
+    "reference-pipeline"
+  ],
+  "ranking": [
+    {
+      "candidate_id": "reference-pipeline",
+      "name": "机制参考链路",
+      "version": "synthetic-reference@1",
+      "quality_score": 100.0,
+      "lane_scores": {
+        "document-extraction": 100.0,
+        "chart-flow": 100.0,
+        "ppt-review": 100.0,
+        "ui-review": 100.0,
+        "general-image": 100.0,
+        "physical-product": 100.0,
+        "ambiguity": 100.0
+      },
+      "cost_usd": 0.12,
+      "latency_ms": 12000.0,
+      "failures": 0
+    },
+    {
+      "candidate_id": "degraded-pipeline",
+      "name": "对抗性退化链路",
+      "version": "synthetic-degraded@1",
+      "quality_score": 80.8,
+      "lane_scores": {
+        "document-extraction": 96.4,
+        "chart-flow": 77.5,
+        "ppt-review": 70.0,
+        "ui-review": 70.0,
+        "general-image": 100.0,
+        "physical-product": 70.0,
+        "ambiguity": 10.0
+      },
+      "cost_usd": 0.12,
+      "latency_ms": 12000.0,
+      "failures": 0
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "supplier-commercial",
+      "name": "多页供应商方案商务抽取",
+      "lane": "document-extraction",
+      "tags": [
+        "pdf",
+        "bilingual",
+        "completeness",
+        "evidence-required"
+      ],
+      "input_digest": "d92272e386b82cb0378856c837b917998aff1816cbc0b8747b6776d02d146b6a",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "supplier",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "model",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "334d6174b6441948f5cdf47e45a7d2043e8773c7b9a03203a2c26f8f3264e993",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "reference-pipeline"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 80.0,
+            "completeness": 80.0,
+            "evidence_grounding": 80.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "supplier",
+              "present": false,
+              "correct": false,
+              "grounded": false
+            },
+            {
+              "fact_id": "model",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "03398a023a98b7b8b12164f126b1a4029cf194c3eebe72ad6370b910670ef033",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 82.0,
+          "candidate_id": "degraded-pipeline"
+        }
+      ]
+    },
+    {
+      "case_id": "procurement-cross-image",
+      "name": "跨截图采购与交付信息",
+      "lane": "document-extraction",
+      "tags": [
+        "multi-asset",
+        "jpeg",
+        "bilingual",
+        "completeness",
+        "evidence-required"
+      ],
+      "input_digest": "a375c717a695c0c920c5126ece42d904a21b5fab8a79d3e1fc94415e9dfef97a",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "quantity",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "delivery",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "4dcb2cbe4b826e02c05c93e43a45844c3fe9b8571b8560a8e47dbe71a8d6651b",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "reference-pipeline"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "quantity",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "delivery",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "4dcb2cbe4b826e02c05c93e43a45844c3fe9b8571b8560a8e47dbe71a8d6651b",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "degraded-pipeline"
+        }
+      ]
+    },
+    {
+      "case_id": "invoice-low-quality",
+      "name": "低清压缩发票",
+      "lane": "document-extraction",
+      "tags": [
+        "jpeg",
+        "low-quality",
+        "evidence-required"
+      ],
+      "input_digest": "7b20d9ac11fa151248dccb2b65956e704c37bc435dd495a9246533a00f75561d",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "invoice-no",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "invoice-total",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "87ee58f0e99d16b071b96d83c73b08caae2f75dceac58c87799465c669551ac8",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "reference-pipeline"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "invoice-no",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "invoice-total",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "87ee58f0e99d16b071b96d83c73b08caae2f75dceac58c87799465c669551ac8",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "degraded-pipeline"
+        }
+      ]
+    },
+    {
+      "case_id": "support-chat",
+      "name": "跨图客户故障上下文",
+      "lane": "document-extraction",
+      "tags": [
+        "multi-asset",
+        "bilingual",
+        "completeness",
+        "evidence-required"
+      ],
+      "input_digest": "22bf0e4e4347eac0f49d0fdcfb3da0868489512684375ef9f1e0e4af7f95eebc",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "ticket",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "root-cause",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "cddcba8184b8f922e2f160d95f0eaa477c08eeed82b9250611f5ca0177b4cf4d",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "reference-pipeline"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "ticket",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "root-cause",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "cddcba8184b8f922e2f160d95f0eaa477c08eeed82b9250611f5ca0177b4cf4d",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "degraded-pipeline"
+        }
+      ]
+    },
+    {
+      "case_id": "supplier-risk",
+      "name": "多页供应商风险与服务条款",
+      "lane": "document-extraction",
+      "tags": [
+        "pdf",
+        "bilingual",
+        "completeness",
+        "evidence-required"
+      ],
+      "input_digest": "cbd326be7d7c6a08b7fb541904153856569c3038bba55a0db4c359d4186a3cfe",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "warranty",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "sla",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "approval",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "7341192903f81e9b0a1bdf72d63f0d8d2cc5349f643ca377b0c26d9cb638ef4c",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "reference-pipeline"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "warranty",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "sla",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "approval",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "7341192903f81e9b0a1bdf72d63f0d8d2cc5349f643ca377b0c26d9cb638ef4c",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "degraded-pipeline"
+        }
+      ]
+    },
+    {
+      "case_id": "regional-sales",
+      "name": "图表与附注交叉核验",
+      "lane": "chart-flow",
+      "tags": [
+        "multi-asset",
+        "completeness",
+        "evidence-required"
+      ],
+      "input_digest": "1bb7c9994c15f33488c9c2c5d2569870fa6da494cd42dcf7eaf37a982dfebc0e",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "top-region",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-sales",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "a8f746ac88e0293dacccead319d6dff0b9101d1d4390572f5a8e091a70880746",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "reference-pipeline"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 50.0,
+            "completeness": 50.0,
+            "evidence_grounding": 50.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "top-region",
+              "present": false,
+              "correct": false,
+              "grounded": false
+            },
+            {
+              "fact_id": "total-sales",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "68bfdc48d26e0dbfa2f35a3eef9bd25f3a148d703faad89f5b22d1dda4664921",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 55.0,
+          "candidate_id": "degraded-pipeline"
+        }
+      ]
+    },
+    {
+      "case_id": "analysis-flow",
+      "name": "流程图分支理解",
+      "lane": "chart-flow",
+      "tags": [
+        "visual-reasoning",
+        "evidence-required"
+      ],
+      "input_digest": "7f64c2d19d315f8f50f51315cedad9db98d54f53707b3ff8e3e8851f46679157",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "trigger",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "normal-output",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "cc45b8e1ce74ec4a0bb2f3f82df2bdcff8948d3bd1460b5bc700706b03292e40",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "reference-pipeline"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "trigger",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "normal-output",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "cc45b8e1ce74ec4a0bb2f3f82df2bdcff8948d3bd1460b5bc700706b03292e40",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "degraded-pipeline"
+        }
+      ]
+    },
+    {
+      "case_id": "campaign-deck",
+      "name": "营销 PDF 跨页一致性与视觉审查",
+      "lane": "ppt-review",
+      "tags": [
+        "pdf",
+        "bilingual",
+        "visual-review",
+        "human-review",
+        "evidence-required"
+      ],
+      "input_digest": "390ad8fa73d3cccbefc559bf98dacd19cc3041191e5e1e8dfc03ab8ee24fc357",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "price-page-3",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "price-page-4",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "cta-contrast",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "247cb6ac60fc4abb6158d5513c56a3233996f3e8f1190071cd397646a490b191",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "reference-pipeline"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 66.67,
+            "completeness": 66.67,
+            "evidence_grounding": 66.67,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "price-page-3",
+              "present": false,
+              "correct": false,
+              "grounded": false
+            },
+            {
+              "fact_id": "price-page-4",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "cta-contrast",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "858e19c5f02b897f7a402224ea964a9b1b396c7cea71fe3dc8616274c1f5c30c",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 70.0,
+          "candidate_id": "degraded-pipeline"
+        }
+      ]
+    },
+    {
+      "case_id": "ui-regression",
+      "name": "UI 前后版本回归验收",
+      "lane": "ui-review",
+      "tags": [
+        "multi-asset",
+        "visual-review",
+        "human-review",
+        "evidence-required"
+      ],
+      "input_digest": "4333cdb0b6165130c6d3cdb97210a969fd166ce8ea7363a405223881ec300858",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "price-before",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "price-after",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "button-clipped",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "06061b80168faef2cfe72046fb159e9d0c8b8239d806683f55d9f152b914ee0a",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "reference-pipeline"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 66.67,
+            "completeness": 66.67,
+            "evidence_grounding": 66.67,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "price-before",
+              "present": false,
+              "correct": false,
+              "grounded": false
+            },
+            {
+              "fact_id": "price-after",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "button-clipped",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "53907c8325e3daffb02f054609ecdfb5d9a568ee8b3ef8e61364ffc79806624a",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 70.0,
+          "candidate_id": "degraded-pipeline"
+        }
+      ]
+    },
+    {
+      "case_id": "warehouse-scene",
+      "name": "一般现场图像理解",
+      "lane": "general-image",
+      "tags": [
+        "jpeg",
+        "evidence-required"
+      ],
+      "input_digest": "4c8526237c4b09ebf87cdb0bd84c6255461b85b28464abbc456dfe75d74e114c",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "zone",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "pallets",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "24e633c84c262ff946e60c82f8ba5b8ba35a4aabcefebdbd2c40c862ac7acdd1",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "reference-pipeline"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "zone",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "pallets",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "24e633c84c262ff946e60c82f8ba5b8ba35a4aabcefebdbd2c40c862ac7acdd1",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "degraded-pipeline"
+        }
+      ]
+    },
+    {
+      "case_id": "product-inspection",
+      "name": "产品铭牌与外观缺陷联合判断",
+      "lane": "physical-product",
+      "tags": [
+        "multi-asset",
+        "jpeg",
+        "visual-review",
+        "human-review",
+        "evidence-required"
+      ],
+      "input_digest": "3c8edb23f600f34768aeeffcf6c31856308ee89aa30593061690529bcb9a572b",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "serial",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "damage",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "59eda7afff609338cd602da2f59db8006725b2e387faecbf071df9a634ce368c",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "reference-pipeline"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 66.67,
+            "completeness": 66.67,
+            "evidence_grounding": 66.67,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "serial",
+              "present": false,
+              "correct": false,
+              "grounded": false
+            },
+            {
+              "fact_id": "damage",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "ccb0c132b4ecd0bc81b46ebe6f5987da4e307152916618ca199c30dbb05e52ec",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 70.0,
+          "candidate_id": "degraded-pipeline"
+        }
+      ]
+    },
+    {
+      "case_id": "conflicting-dates",
+      "name": "冲突信息与人工升级",
+      "lane": "ambiguity",
+      "tags": [
+        "ambiguity",
+        "low-quality",
+        "human-review",
+        "evidence-required"
+      ],
+      "input_digest": "e42ac016dfe225b84f6b1ebd8f8f11efacd230418a9c9a2bf29aece721c306b6",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "decision",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "65e3af7b94cb3e827dc702c3cccb53d742f3c070f4e297becad4ca9d0809b391",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 100.0,
+          "candidate_id": "reference-pipeline"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 0.0,
+            "completeness": 0.0,
+            "evidence_grounding": 0.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "decision",
+              "present": false,
+              "correct": false,
+              "grounded": false
+            }
+          ],
+          "errors": [],
+          "output_digest": "e384df29bb538e67534dafadd14b4fea9949769dbad3800c369287ff50959c6e",
+          "latency_ms": 1000.0,
+          "usage": {
+            "input_tokens": 1000,
+            "output_tokens": 200,
+            "cost_usd": 0.01
+          },
+          "quality_score": 10.0,
+          "candidate_id": "degraded-pipeline"
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "case_count": 12,
+    "pdf_case_share": 0.25,
+    "multi_asset_case_share": 0.4167,
+    "lane_case_counts": {
+      "document-extraction": 5,
+      "chart-flow": 2,
+      "ppt-review": 1,
+      "ui-review": 1,
+      "general-image": 1,
+      "physical-product": 1,
+      "ambiguity": 1
+    },
+    "tag_shares": {
+      "ambiguity": 0.0833,
+      "bilingual": 0.4167,
+      "completeness": 0.4167,
+      "evidence-required": 1.0,
+      "human-review": 0.3333,
+      "jpeg": 0.3333,
+      "low-quality": 0.1667,
+      "multi-asset": 0.4167,
+      "pdf": 0.25,
+      "visual-reasoning": 0.0833,
+      "visual-review": 0.25
+    }
+  },
+  "decision_status": "framework-validation",
+  "selection_ready": false,
+  "selection_blockers": [
+    "single-run report; require repeated independent runs before selection",
+    "synthetic corpus validates the mechanism but cannot establish production fitness",
+    "human pairwise review is required for lanes: ppt-review, ui-review, physical-product, ambiguity",
+    "operational ingestion success must be measured on the deployed pipeline"
+  ],
+  "selection_note": "质量分不混入成本与时延；采购或路由决策应在质量门槛通过后比较效率。"
+}

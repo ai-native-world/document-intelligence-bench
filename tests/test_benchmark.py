@@ -17,11 +17,64 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 SUITE = ROOT / "examples/material-analysis/suite.yaml"
+WORKLOAD_SUITE = ROOT / "benchmarks/enterprise-workload-v1/suite.yaml"
 
 from docbench import BenchmarkError, BenchmarkRegistry, BenchmarkRunner
 
 
 class BenchmarkRunnerTest(unittest.TestCase):
+    def test_workload_suite_passes_coverage_and_uses_lane_weights(self) -> None:
+        report = BenchmarkRunner(ROOT).run(WORKLOAD_SUITE)
+        self.assertEqual(report["coverage"]["case_count"], 12)
+        self.assertGreaterEqual(report["coverage"]["pdf_case_share"], 0.25)
+        self.assertGreaterEqual(report["coverage"]["multi_asset_case_share"], 0.33)
+        degraded = next(item for item in report["ranking"] if item["candidate_id"] == "degraded-pipeline")
+        self.assertEqual(degraded["quality_score"], 80.8)
+        self.assertEqual(degraded["lane_scores"]["ambiguity"], 10.0)
+        self.assertFalse(report["selection_ready"])
+        self.assertTrue(any("synthetic corpus" in item for item in report["selection_blockers"]))
+
+    def test_workload_coverage_gate_and_secondary_asset_escape_fail_closed(self) -> None:
+        with self.mutated_workload_suite() as (path, suite):
+            suite["workload_profile"]["coverage_gates"]["min_pdf_case_share"] = 0.5
+            path.write_text(yaml.safe_dump(suite, sort_keys=False, allow_unicode=True), encoding="utf-8")
+            with self.assertRaisesRegex(BenchmarkError, "pdf_case_share"):
+                BenchmarkRunner(ROOT).load(path)
+        with self.mutated_workload_suite() as (path, suite):
+            suite["cases"][1]["assets"][1]["path"] = "../outside.png"
+            path.write_text(yaml.safe_dump(suite, sort_keys=False, allow_unicode=True), encoding="utf-8")
+            with self.assertRaisesRegex(BenchmarkError, "does not match"):
+                BenchmarkRunner(ROOT).load(path)
+
+    def test_validate_only_never_calls_candidates(self) -> None:
+        registry = BenchmarkRegistry()
+        registry.register_candidate(
+            "fixture://captures/reference-pipeline.json",
+            lambda _payload, _context: (_ for _ in ()).throw(AssertionError("candidate called")),
+        )
+        report = BenchmarkRunner(ROOT, registry).validate(WORKLOAD_SUITE)
+        self.assertTrue(report["valid"])
+        self.assertEqual(report["kind"], "benchmark-validation")
+
+    def test_openai_adapter_sends_every_image_and_rejects_pdf(self) -> None:
+        registry = BenchmarkRegistry()
+        candidate = {
+            "id": "multi-image", "version": "multi-image@1", "endpoint": "openai://test",
+            "base_url": "https://example.invalid/v1", "api_key_env": "DOCBENCH_TEST_KEY", "model": "vision-model",
+        }
+        context = {"candidate": candidate, "timeout_seconds": 30, "fact_contract": [], "output_schema": {"type": "object"}}
+        payload = {"instructions": "compare", "assets": [
+            {"media_type": "image/png", "data_base64": "aW1hZ2Ux"},
+            {"media_type": "image/jpeg", "data_base64": "aW1hZ2Uy"},
+        ]}
+        with patch.object(BenchmarkRegistry, "_openai_request", return_value={"model_version": "multi-image@1"}) as request:
+            registry.candidate(candidate["endpoint"], payload, context)
+        content = request.call_args.args[0]["messages"][1]["content"]
+        self.assertEqual([item["type"] for item in content], ["text", "image_url", "image_url"])
+        payload["assets"] = [{"media_type": "application/pdf", "data_base64": "cGRm"}]
+        with self.assertRaisesRegex(BenchmarkError, "native PDF or HTTP pipeline"):
+            registry.candidate(candidate["endpoint"], payload, context)
+
     def test_fixture_suite_ranks_quality_without_mixing_cost(self) -> None:
         report = BenchmarkRunner(ROOT).run(SUITE)
         self.assertEqual(report["quality_winner"], "multimodal-parser")
@@ -227,6 +280,7 @@ class BenchmarkRunnerTest(unittest.TestCase):
         try:
             with self.mutated_suite() as (path, suite):
                 candidate = next(item for item in suite["candidates"] if item["id"] == "ocr-pipeline")
+                suite["cases"][0]["media_type"] = "image/png"
                 candidate.update({
                     "endpoint": "openai://test",
                     "base_url": f"http://127.0.0.1:{server.server_port}",
@@ -239,7 +293,7 @@ class BenchmarkRunnerTest(unittest.TestCase):
                 result = next(item for item in report["cases"][0]["results"] if item["candidate_id"] == "ocr-pipeline")
                 self.assertFalse(result["errors"])
                 content = seen["messages"][1]["content"]
-                self.assertTrue(content[1]["image_url"]["url"].startswith("data:text/plain;base64,"))
+                self.assertTrue(content[1]["image_url"]["url"].startswith("data:image/png;base64,"))
                 self.assertEqual(seen["response_format"], {"type": "json_object"})
                 prompt = content[0]["text"]
                 self.assertNotIn("MX-420", prompt)
@@ -291,6 +345,21 @@ class BenchmarkRunnerTest(unittest.TestCase):
                 inner_self.temp = tempfile.TemporaryDirectory()
                 target = Path(inner_self.temp.name) / "suite"
                 shutil.copytree(SUITE.parent, target)
+                inner_self.path = target / "suite.yaml"
+                inner_self.suite = yaml.safe_load(inner_self.path.read_text(encoding="utf-8"))
+                return inner_self.path, inner_self.suite
+
+            def __exit__(inner_self, *_args):
+                inner_self.temp.cleanup()
+
+        return TemporarySuite()
+
+    def mutated_workload_suite(self):
+        class TemporarySuite:
+            def __enter__(inner_self):
+                inner_self.temp = tempfile.TemporaryDirectory()
+                target = Path(inner_self.temp.name) / "suite"
+                shutil.copytree(WORKLOAD_SUITE.parent, target)
                 inner_self.path = target / "suite.yaml"
                 inner_self.suite = yaml.safe_load(inner_self.path.read_text(encoding="utf-8"))
                 return inner_self.path, inner_self.suite

@@ -1,0 +1,437 @@
+schema_version: '0.2'
+kind: benchmark-suite
+id: enterprise-workload-v1
+name: 企业材料多模态代表性工作负载 v1
+corpus_policy: synthetic
+output_schema: output.schema.json
+workload_profile:
+  lanes:
+  - id: document-extraction
+    name: 文档表格文字抽取
+    weight: 0.5
+    min_cases: 5
+  - id: chart-flow
+    name: 图表流程架构理解
+    weight: 0.12
+    min_cases: 2
+  - id: ppt-review
+    name: PPT 营销视觉审查
+    weight: 0.1
+    min_cases: 1
+  - id: ui-review
+    name: UI 视觉验收
+    weight: 0.1
+    min_cases: 1
+  - id: general-image
+    name: 一般图片理解
+    weight: 0.05
+    min_cases: 1
+  - id: physical-product
+    name: 产品与现场照片
+    weight: 0.05
+    min_cases: 1
+  - id: ambiguity
+    name: 歧义与人工升级
+    weight: 0.08
+    min_cases: 1
+  coverage_gates:
+    min_pdf_case_share: 0.25
+    min_multi_asset_case_share: 0.33
+    required_tag_shares:
+      bilingual: 0.33
+      low-quality: 0.16
+      visual-review: 0.25
+      evidence-required: 1.0
+  human_review_lanes:
+  - ppt-review
+  - ui-review
+  - physical-product
+  - ambiguity
+cases:
+- id: supplier-commercial
+  name: 多页供应商方案商务抽取
+  weight: 1
+  lane: document-extraction
+  tags:
+  - pdf
+  - bilingual
+  - completeness
+  - evidence-required
+  assets:
+  - path: assets/supplier-proposal.pdf
+    media_type: application/pdf
+  instructions: 提取供应商、型号、数量、含税总价和交付条款。
+  facts:
+  - id: supplier
+    path: supplier.name
+    expected: 北辰精工
+    source_refs:
+    - page-1
+    evidence_text: 供应商：北辰精工
+    weight: 1
+  - id: model
+    path: supplier.model
+    expected: MX-420
+    source_refs:
+    - page-2
+    evidence_text: 设备型号：MX-420
+    weight: 2
+  - id: total
+    path: supplier.total_cny
+    expected: 318000
+    source_refs:
+    - page-2
+    evidence_text: 含税总价：人民币 318,000 元
+    weight: 2
+- id: procurement-cross-image
+  name: 跨截图采购与交付信息
+  weight: 1
+  lane: document-extraction
+  tags:
+  - multi-asset
+  - jpeg
+  - bilingual
+  - completeness
+  - evidence-required
+  assets:
+  - path: assets/procurement-page-1.jpg
+    media_type: image/jpeg
+  - path: assets/procurement-page-2.jpg
+    media_type: image/jpeg
+  instructions: 跨两张截图提取型号、数量、交付日和审批状态。
+  facts:
+  - id: quantity
+    path: procurement.quantity
+    expected: 12
+    source_refs:
+    - asset-1
+    evidence_text: 数量：12 台
+    weight: 1
+  - id: delivery
+    path: procurement.delivery_date
+    expected: '2026-09-15'
+    source_refs:
+    - asset-2
+    evidence_text: 交付日期：2026-09-15
+    weight: 2
+- id: invoice-low-quality
+  name: 低清压缩发票
+  weight: 1
+  lane: document-extraction
+  tags:
+  - jpeg
+  - low-quality
+  - evidence-required
+  assets:
+  - path: assets/invoice-low-quality.jpg
+    media_type: image/jpeg
+  instructions: 提取发票号码和价税合计。
+  facts:
+  - id: invoice-no
+    path: invoice.number
+    expected: INV-260822-07
+    source_refs:
+    - asset-1
+    evidence_text: 发票号码：INV-260822-07
+    weight: 1
+  - id: invoice-total
+    path: invoice.total_cny
+    expected: 84520
+    source_refs:
+    - asset-1
+    evidence_text: 价税合计：¥84,520.00
+    weight: 2
+- id: support-chat
+  name: 跨图客户故障上下文
+  weight: 1
+  lane: document-extraction
+  tags:
+  - multi-asset
+  - bilingual
+  - completeness
+  - evidence-required
+  assets:
+  - path: assets/support-chat-1.png
+    media_type: image/png
+  - path: assets/support-chat-2.png
+    media_type: image/png
+  instructions: 合并两张群聊截图，提取工单、根因、恢复承诺和责任人。
+  facts:
+  - id: ticket
+    path: incident.ticket
+    expected: CS-8841
+    source_refs:
+    - asset-1
+    evidence_text: 工单 CS-8841
+    weight: 1
+  - id: root-cause
+    path: incident.root_cause
+    expected: 上游超时
+    source_refs:
+    - asset-2
+    evidence_text: 根因是上游超时
+    weight: 2
+- id: supplier-risk
+  name: 多页供应商风险与服务条款
+  weight: 1
+  lane: document-extraction
+  tags:
+  - pdf
+  - bilingual
+  - completeness
+  - evidence-required
+  assets:
+  - path: assets/supplier-proposal.pdf
+    media_type: application/pdf
+  instructions: 提取质保期、服务 SLA、异常责任人和审批状态。
+  facts:
+  - id: warranty
+    path: risk.warranty_months
+    expected: 24
+    source_refs:
+    - page-3
+    evidence_text: 质保期：24 个月
+    weight: 1
+  - id: sla
+    path: risk.sla_hours
+    expected: 4
+    source_refs:
+    - page-3
+    evidence_text: 'Service response SLA: 4 hours'
+    weight: 1
+  - id: approval
+    path: risk.approval_status
+    expected: 待法务复核
+    source_refs:
+    - page-4
+    evidence_text: 审批状态：待法务复核
+    weight: 2
+- id: regional-sales
+  name: 图表与附注交叉核验
+  weight: 1
+  lane: chart-flow
+  tags:
+  - multi-asset
+  - completeness
+  - evidence-required
+  assets:
+  - path: assets/regional-chart.png
+    media_type: image/png
+  - path: assets/regional-note.png
+    media_type: image/png
+  instructions: 结合图表和附注提取最高区域及四区合计。
+  facts:
+  - id: top-region
+    path: sales.top_region
+    expected: 华东
+    source_refs:
+    - asset-2
+    evidence_text: 最高：华东 92 万元
+    weight: 2
+  - id: total-sales
+    path: sales.total
+    expected: 290
+    source_refs:
+    - asset-2
+    evidence_text: 四区合计：290 万元
+    weight: 2
+- id: analysis-flow
+  name: 流程图分支理解
+  weight: 1
+  lane: chart-flow
+  tags:
+  - visual-reasoning
+  - evidence-required
+  assets:
+  - path: assets/analysis-flow.png
+    media_type: image/png
+  instructions: 提取异常触发条件、异常责任人和正常输出。
+  facts:
+  - id: trigger
+    path: flow.trigger
+    expected: 关键字段缺失
+    source_refs:
+    - asset-1
+    evidence_text: 关键字段缺失？
+    weight: 2
+  - id: normal-output
+    path: flow.normal_output
+    expected: 生成客户调研摘要
+    source_refs:
+    - asset-1
+    evidence_text: 生成客户调研摘要
+    weight: 1
+- id: campaign-deck
+  name: 营销 PDF 跨页一致性与视觉审查
+  weight: 1
+  lane: ppt-review
+  tags:
+  - pdf
+  - bilingual
+  - visual-review
+  - human-review
+  - evidence-required
+  assets:
+  - path: assets/campaign-deck.pdf
+    media_type: application/pdf
+  instructions: 提取第 3、4 页价格并检查一致性，同时检查最终 CTA 可读性。
+  facts:
+  - id: price-page-3
+    path: deck.price_page_3
+    expected: 2999
+    source_refs:
+    - page-3
+    evidence_text: 'Launch price: ¥2,999 / month'
+    weight: 2
+  - id: price-page-4
+    path: deck.price_page_4
+    expected: 3299
+    source_refs:
+    - page-4
+    evidence_text: 'Launch price: ¥3,299 / month'
+    weight: 2
+  - id: cta-contrast
+    path: deck.cta_contrast_ratio
+    expected: 2.1
+    source_refs:
+    - page-5
+    evidence_text: 'CTA contrast ratio: 2.1:1'
+    weight: 2
+- id: ui-regression
+  name: UI 前后版本回归验收
+  weight: 1
+  lane: ui-review
+  tags:
+  - multi-asset
+  - visual-review
+  - human-review
+  - evidence-required
+  assets:
+  - path: assets/ui-before.png
+    media_type: image/png
+  - path: assets/ui-after.png
+    media_type: image/png
+  instructions: 比较前后版本，分别提取价格并识别按钮裁切。
+  facts:
+  - id: price-before
+    path: ui.price_before
+    expected: 2999
+    source_refs:
+    - asset-1
+    evidence_text: 'Price: ¥2,999 / month'
+    weight: 2
+  - id: price-after
+    path: ui.price_after
+    expected: 3299
+    source_refs:
+    - asset-2
+    evidence_text: 'Price: ¥3,299 / month'
+    weight: 2
+  - id: button-clipped
+    path: ui.button_clipped
+    expected: true
+    source_refs:
+    - asset-2
+    evidence_text: 'Button clipped: Confirm Purc...'
+    weight: 2
+- id: warehouse-scene
+  name: 一般现场图像理解
+  weight: 1
+  lane: general-image
+  tags:
+  - jpeg
+  - evidence-required
+  assets:
+  - path: assets/warehouse-scene.jpg
+    media_type: image/jpeg
+  instructions: 提取区域、托盘数和安全出口状态。
+  facts:
+  - id: zone
+    path: warehouse.zone
+    expected: B-3
+    source_refs:
+    - asset-1
+    evidence_text: 'Zone: B-3'
+    weight: 1
+  - id: pallets
+    path: warehouse.pallet_count
+    expected: 18
+    source_refs:
+    - asset-1
+    evidence_text: 'Pallet count: 18'
+    weight: 1
+- id: product-inspection
+  name: 产品铭牌与外观缺陷联合判断
+  weight: 1
+  lane: physical-product
+  tags:
+  - multi-asset
+  - jpeg
+  - visual-review
+  - human-review
+  - evidence-required
+  assets:
+  - path: assets/product-front.jpg
+    media_type: image/jpeg
+  - path: assets/product-damage.jpg
+    media_type: image/jpeg
+  instructions: 结合铭牌和外观图提取型号、序列号、损伤位置及严重度。
+  facts:
+  - id: serial
+    path: product.serial
+    expected: SN-884210
+    source_refs:
+    - asset-1
+    evidence_text: 'Serial: SN-884210'
+    weight: 1
+  - id: damage
+    path: product.damage
+    expected: left-panel-dent
+    source_refs:
+    - asset-2
+    evidence_text: dent on left panel
+    weight: 2
+- id: conflicting-dates
+  name: 冲突信息与人工升级
+  weight: 1
+  lane: ambiguity
+  tags:
+  - ambiguity
+  - low-quality
+  - human-review
+  - evidence-required
+  assets:
+  - path: assets/conflicting-dates.png
+    media_type: image/png
+  instructions: 判断上线日期是否可自动确定；冲突时必须升级人工。
+  facts:
+  - id: decision
+    path: schedule.decision
+    expected: requires-human
+    source_refs:
+    - asset-1
+    evidence_text: 日期冲突，需人工确认
+    weight: 3
+candidates:
+- id: reference-pipeline
+  name: 机制参考链路
+  version: synthetic-reference@1
+  endpoint: fixture://captures/reference-pipeline.json
+- id: degraded-pipeline
+  name: 对抗性退化链路
+  version: synthetic-degraded@1
+  endpoint: fixture://captures/degraded-pipeline.json
+rubric:
+  dimensions:
+  - id: factual_accuracy
+    name: 事实准确性
+    weight: 0.45
+  - id: completeness
+    name: 信息完整性
+    weight: 0.25
+  - id: evidence_grounding
+    name: 证据可追溯性
+    weight: 0.2
+  - id: schema_compliance
+    name: 结构合规性
+    weight: 0.1
