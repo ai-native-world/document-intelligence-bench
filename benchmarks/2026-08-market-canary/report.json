@@ -1,0 +1,1158 @@
+{
+  "schema_version": "0.1",
+  "kind": "benchmark-report",
+  "suite_id": "market-vision-canary-2026-08",
+  "suite_digest": "a938ff4840d78124dee65e7b912cdd2f8dbb8f5721830234a632535dc0ea4231",
+  "generated_at": "2026-08-22T03:04:36.793077Z",
+  "source_report_digest": "cbbf1b746e01a2595dc67666520bc6b458086e5f652d51051dd2f8dabaf7fe0f",
+  "quality_winner": null,
+  "quality_leaders": [
+    "gemini-35-flash",
+    "kimi-k25",
+    "qwen-35-plus",
+    "qwen-36-plus"
+  ],
+  "ranking": [
+    {
+      "candidate_id": "gemini-35-flash",
+      "name": "Gemini 3.5 Flash",
+      "version": "gemini-3.5-flash@2026-08-22",
+      "quality_score": 100.0,
+      "cost_usd": null,
+      "latency_ms": 32586.097,
+      "failures": 0
+    },
+    {
+      "candidate_id": "kimi-k25",
+      "name": "Kimi K2.5 via Model Studio",
+      "version": "kimi-k2.5@2026-08-22",
+      "quality_score": 100.0,
+      "cost_usd": null,
+      "latency_ms": 22552.862,
+      "failures": 0
+    },
+    {
+      "candidate_id": "qwen-35-plus",
+      "name": "Qwen3.5 Plus",
+      "version": "qwen3.5-plus@2026-08-22",
+      "quality_score": 100.0,
+      "cost_usd": null,
+      "latency_ms": 86077.228,
+      "failures": 0
+    },
+    {
+      "candidate_id": "qwen-36-plus",
+      "name": "Qwen3.6 Plus",
+      "version": "qwen3.6-plus@2026-08-22",
+      "quality_score": 100.0,
+      "cost_usd": null,
+      "latency_ms": 59322.889,
+      "failures": 0
+    },
+    {
+      "candidate_id": "qwen-vl-plus",
+      "name": "Qwen3 VL Plus",
+      "version": "qwen3-vl-plus@2026-08-22",
+      "quality_score": 94.17,
+      "cost_usd": null,
+      "latency_ms": 20542.956,
+      "failures": 0
+    },
+    {
+      "candidate_id": "deepseek-vision-exp",
+      "name": "DeepSeek V4 Flash Vision Exp",
+      "version": "deepseek-v4-flash-vision-exp@2026-08-21",
+      "quality_score": 88.75,
+      "cost_usd": null,
+      "latency_ms": 15879.505,
+      "failures": 0
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "equipment-order",
+      "name": "设备采购订单",
+      "input_digest": "ddbdd5d859aaf2b1a6816b1103070465cbc5bffe42a3e8d79ee59efe331ae043",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "product-model",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "quantity",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-price",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "delivery-date",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "840e07ad0278c699b719d8caff65ccb242e36d52c26a75af17a729602b8c1be4",
+          "latency_ms": 5241.264,
+          "usage": {
+            "input_tokens": 1091,
+            "output_tokens": 520,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "deepseek-vision-exp"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "product-model",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "quantity",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-price",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "delivery-date",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "5b32cc46957bd5e72cd6b2e9264b8c7f1f8d7f783eeabd64b1850422ce484894",
+          "latency_ms": 4856.867,
+          "usage": {
+            "input_tokens": 1666,
+            "output_tokens": 244,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "qwen-vl-plus"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "product-model",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "quantity",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-price",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "delivery-date",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "015153546b16faf7654a297c14b26e6eae8deac7a0dc06ead893671138a6bcc8",
+          "latency_ms": 16435.214,
+          "usage": {
+            "input_tokens": 1667,
+            "output_tokens": 963,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "qwen-35-plus"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "product-model",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "quantity",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-price",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "delivery-date",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "7180dbcca64fd0d294b1926034c1061606ed80d38953e706229600322e8bb8da",
+          "latency_ms": 14672.952,
+          "usage": {
+            "input_tokens": 1667,
+            "output_tokens": 803,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "qwen-36-plus"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "product-model",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "quantity",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-price",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "delivery-date",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "5b32cc46957bd5e72cd6b2e9264b8c7f1f8d7f783eeabd64b1850422ce484894",
+          "latency_ms": 6289.465,
+          "usage": {
+            "input_tokens": 2019,
+            "output_tokens": 222,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "kimi-k25"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "product-model",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "quantity",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-price",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "delivery-date",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "0a5b722e3c24439e8668220e07ec4ed8ef7b285e3c9c58e12611bf95f17ec5fc",
+          "latency_ms": 11144.644,
+          "usage": {
+            "input_tokens": 1714,
+            "output_tokens": 293,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "gemini-35-flash"
+        }
+      ]
+    },
+    {
+      "case_id": "inspection-report",
+      "name": "来料检验与判定",
+      "input_digest": "f6079114d79ee29e1a8fe5a47abdf92db55d6ee2e19aed99f652ef79dceb3c08",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "batch-id",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "defect-rate",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "inspection-result",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "exception-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "sla-hours",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "0f808237df1317072eb669ddf57220ea202258db90d836629a9abd1c00402ace",
+          "latency_ms": 4582.865,
+          "usage": {
+            "input_tokens": 1151,
+            "output_tokens": 472,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "deepseek-vision-exp"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "batch-id",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "defect-rate",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "inspection-result",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "exception-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "sla-hours",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "a6115c2ba65f41d18bf59ee21528074ab8cdd7740587890952c57a1b8a86b3e7",
+          "latency_ms": 6333.937,
+          "usage": {
+            "input_tokens": 1711,
+            "output_tokens": 290,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "qwen-vl-plus"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "batch-id",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "defect-rate",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "inspection-result",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "exception-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "sla-hours",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "a67948ec371d5826a33a0c221eeeb6d31e7b27df43d681abc44511211ed54afd",
+          "latency_ms": 22355.084,
+          "usage": {
+            "input_tokens": 1714,
+            "output_tokens": 1422,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "qwen-35-plus"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "batch-id",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "defect-rate",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "inspection-result",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "exception-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "sla-hours",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "b93c53fb36b3862c4fc09a69733d40114367cae71770075e6ff368d0c1b37393",
+          "latency_ms": 13252.655,
+          "usage": {
+            "input_tokens": 1714,
+            "output_tokens": 715,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "qwen-36-plus"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "batch-id",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "defect-rate",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "inspection-result",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "exception-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "sla-hours",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "a6115c2ba65f41d18bf59ee21528074ab8cdd7740587890952c57a1b8a86b3e7",
+          "latency_ms": 5503.04,
+          "usage": {
+            "input_tokens": 2074,
+            "output_tokens": 179,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "kimi-k25"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "batch-id",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "defect-rate",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "inspection-result",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "exception-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "sla-hours",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "ed143adc8d4683f0afbfdf619c7713074ea61a71182d9164ef6b64c097ca27ac",
+          "latency_ms": 8655.001,
+          "usage": {
+            "input_tokens": 1756,
+            "output_tokens": 346,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "gemini-35-flash"
+        }
+      ]
+    },
+    {
+      "case_id": "regional-sales",
+      "name": "区域销售图表",
+      "input_digest": "932dd70771cc421bccf9c08d35e18b5dcace6a848d10ad0640c063fa6fbde908",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 60.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "top-region",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "top-value",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-value",
+              "present": true,
+              "correct": true,
+              "grounded": false
+            }
+          ],
+          "errors": [],
+          "output_digest": "55cfe9f34ef326dcd8cb9f4c1a06bbde2ddb7c946c988d587d9a07bd2cfa1ed8",
+          "latency_ms": 2387.783,
+          "usage": {
+            "input_tokens": 1059,
+            "output_tokens": 185,
+            "cost_usd": null
+          },
+          "quality_score": 90.0,
+          "candidate_id": "deepseek-vision-exp"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "top-region",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "top-value",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-value",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "7199077383e5f54b7395b873872196d030f2f06e682a68e9c15e4b11b42aef07",
+          "latency_ms": 4537.258,
+          "usage": {
+            "input_tokens": 1640,
+            "output_tokens": 181,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "qwen-vl-plus"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "top-region",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "top-value",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-value",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "9e169c43b87663de0d93e0853e0ec0ce645ea0f9f09ed230909e74a72651c37f",
+          "latency_ms": 21381.807,
+          "usage": {
+            "input_tokens": 1644,
+            "output_tokens": 1273,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "qwen-35-plus"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "top-region",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "top-value",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-value",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "3d1ce04fad9eceefbeee82bb0a37144d9bdacbc81ee1d75a008b525be6188d29",
+          "latency_ms": 9617.295,
+          "usage": {
+            "input_tokens": 1644,
+            "output_tokens": 475,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "qwen-36-plus"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "top-region",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "top-value",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-value",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "ca3385268bcfa1e3d22aa47d8e125d576f3d8b794d5c0f2a0fa317f16c8a08b1",
+          "latency_ms": 4879.764,
+          "usage": {
+            "input_tokens": 1995,
+            "output_tokens": 171,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "kimi-k25"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "top-region",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "top-value",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-value",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "d98a5df0f33776071ccdcd4cfbe077cc4ea703c18cf130bfddde6be31f4c29d0",
+          "latency_ms": 6997.76,
+          "usage": {
+            "input_tokens": 1685,
+            "output_tokens": 219,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "gemini-35-flash"
+        }
+      ]
+    },
+    {
+      "case_id": "analysis-process",
+      "name": "材料解析流程图",
+      "input_digest": "07d712d4db8922da0148a81620068a3d3407701315320053542736ca58488b13",
+      "results": [
+        {
+          "dimensions": {
+            "factual_accuracy": 50.0,
+            "completeness": 100.0,
+            "evidence_grounding": 50.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "exception-trigger",
+              "present": true,
+              "correct": false,
+              "grounded": false
+            },
+            {
+              "fact_id": "process-owner",
+              "present": true,
+              "correct": false,
+              "grounded": false
+            },
+            {
+              "fact_id": "process-sla",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "normal-output",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "e0b0b1bb35e27daa6a38b4fbccf14343bcfac4f5202ed8957fd4bc396af00969",
+          "latency_ms": 3667.593,
+          "usage": {
+            "input_tokens": 1103,
+            "output_tokens": 347,
+            "cost_usd": null
+          },
+          "quality_score": 65.0,
+          "candidate_id": "deepseek-vision-exp"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 66.67,
+            "completeness": 100.0,
+            "evidence_grounding": 66.67,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "exception-trigger",
+              "present": true,
+              "correct": false,
+              "grounded": false
+            },
+            {
+              "fact_id": "process-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "process-sla",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "normal-output",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "87f5a196ebdbcf65cd73b9e41719a29a4d8796be1ff9a6409395daf44abb8a27",
+          "latency_ms": 4814.894,
+          "usage": {
+            "input_tokens": 1676,
+            "output_tokens": 207,
+            "cost_usd": null
+          },
+          "quality_score": 76.67,
+          "candidate_id": "qwen-vl-plus"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "exception-trigger",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "process-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "process-sla",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "normal-output",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "7ae034fa79aeb491802cf0c2f42af3030ef83d8e3047abd8db870fbdf14c6377",
+          "latency_ms": 25905.123,
+          "usage": {
+            "input_tokens": 1677,
+            "output_tokens": 1627,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "qwen-35-plus"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "exception-trigger",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "process-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "process-sla",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "normal-output",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "7ae034fa79aeb491802cf0c2f42af3030ef83d8e3047abd8db870fbdf14c6377",
+          "latency_ms": 21779.987,
+          "usage": {
+            "input_tokens": 1677,
+            "output_tokens": 1221,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "qwen-36-plus"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "exception-trigger",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "process-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "process-sla",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "normal-output",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "7ae034fa79aeb491802cf0c2f42af3030ef83d8e3047abd8db870fbdf14c6377",
+          "latency_ms": 5880.593,
+          "usage": {
+            "input_tokens": 2029,
+            "output_tokens": 204,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "kimi-k25"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "exception-trigger",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "process-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "process-sla",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "normal-output",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "7ae034fa79aeb491802cf0c2f42af3030ef83d8e3047abd8db870fbdf14c6377",
+          "latency_ms": 5788.692,
+          "usage": {
+            "input_tokens": 1721,
+            "output_tokens": 249,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "gemini-35-flash"
+        }
+      ]
+    }
+  ],
+  "selection_note": "质量分不混入成本与时延；本报告由保留的原始输出离线重评分。"
+}

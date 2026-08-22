@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://coolai.example/schemas/uc-runtime/benchmark-suite.schema.json",
+  "title": "UC candidate benchmark suite",
+  "type": "object",
+  "required": ["schema_version", "kind", "id", "name", "output_schema", "cases", "candidates", "rubric"],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "kind": { "const": "benchmark-suite" },
+    "id": { "$ref": "#/$defs/identifier" },
+    "name": { "$ref": "#/$defs/human_text" },
+    "output_schema": { "$ref": "#/$defs/local_path" },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/case" }
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/candidate" }
+    },
+    "rubric": { "$ref": "#/$defs/rubric" },
+    "judge": { "$ref": "#/$defs/judge" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,63}$"
+    },
+    "human_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "local_path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "fact": {
+      "type": "object",
+      "required": ["id", "path", "expected", "source_refs", "evidence_text", "weight"],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "path": { "type": "string", "pattern": "^[A-Za-z0-9_-]+(?:\\.[A-Za-z0-9_-]+)*$" },
+        "expected": { "type": ["null", "boolean", "number", "string", "array", "object"] },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 200 }
+        },
+        "evidence_text": { "type": "string", "minLength": 1, "maxLength": 2000 },
+        "weight": { "type": "number", "exclusiveMinimum": 0 },
+        "numeric_tolerance": { "type": "number", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "case": {
+      "type": "object",
+      "required": ["id", "name", "weight", "asset", "media_type", "instructions", "facts"],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "name": { "$ref": "#/$defs/human_text" },
+        "weight": { "type": "number", "exclusiveMinimum": 0 },
+        "asset": { "$ref": "#/$defs/local_path" },
+        "media_type": { "type": "string", "pattern": "^[a-z0-9.+-]+/[a-z0-9.+-]+$" },
+        "instructions": { "$ref": "#/$defs/human_text" },
+        "facts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/fact" } }
+      },
+      "additionalProperties": false
+    },
+    "candidate": {
+      "type": "object",
+      "required": ["id", "name", "version", "endpoint"],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "name": { "$ref": "#/$defs/human_text" },
+        "version": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "endpoint": { "type": "string", "pattern": "^(?:https?://|fixture://|openai://).+" },
+        "base_url": { "type": "string", "pattern": "^https?://.+" },
+        "api_key_env": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]+$" },
+        "model": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "accepted_observed_models": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 200 }
+        },
+        "max_tokens": { "type": "integer", "minimum": 1, "maximum": 131072 },
+        "temperature": { "type": "number", "minimum": 0, "maximum": 2 },
+        "response_format": { "enum": ["json_object", "prompt_only"] },
+        "pricing_usd_per_million": {
+          "type": "object",
+          "required": ["input", "output"],
+          "properties": {
+            "input": { "type": "number", "minimum": 0 },
+            "output": { "type": "number", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "timeout_seconds": { "type": "number", "exclusiveMinimum": 0, "maximum": 600 }
+      },
+      "additionalProperties": false
+    },
+    "dimension": {
+      "type": "object",
+      "required": ["id", "name", "weight"],
+      "properties": {
+        "id": {
+          "enum": ["factual_accuracy", "completeness", "evidence_grounding", "schema_compliance", "ai_judge"]
+        },
+        "name": { "$ref": "#/$defs/human_text" },
+        "weight": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "rubric": {
+      "type": "object",
+      "required": ["dimensions"],
+      "properties": {
+        "dimensions": { "type": "array", "minItems": 4, "maxItems": 5, "items": { "$ref": "#/$defs/dimension" } }
+      },
+      "additionalProperties": false
+    },
+    "judge": {
+      "type": "object",
+      "required": ["endpoint", "version", "criteria"],
+      "properties": {
+        "endpoint": { "type": "string", "pattern": "^(?:https?://|fixture://).+" },
+        "version": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/human_text" }
+        },
+        "timeout_seconds": { "type": "number", "exclusiveMinimum": 0, "maximum": 600 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "cases": {
+    "equipment-order": {
+      "model_version": "captured-demo-2026-08-22",
+      "output": {
+        "fields": {
+          "order": {
+            "product_model": "MX-420",
+            "quantity": 12,
+            "total_price_cny": 31800,
+            "delivery_date": "2026-09-15"
+          }
+        },
+        "evidence": [
+          {"fact_id": "product-model", "source_ref": "page-1", "quote": "型号：MX-420"},
+          {"fact_id": "quantity", "source_ref": "page-1", "quote": "数量：12 台"},
+          {"fact_id": "delivery-date", "source_ref": "page-2", "quote": "交付日期：2026 年 9 月 15 日"}
+        ],
+        "uncertainties": []
+      },
+      "usage": {"input_tokens": 700, "output_tokens": 150, "cost_usd": 0.0031},
+      "latency_ms": 960
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "cases": {
+    "equipment-order": {
+      "scores": {
+        "multimodal-parser": {"score": 96, "rationale": "四项结论完整、结构清晰，且逐项提供了对应证据。"},
+        "ocr-pipeline": {"score": 72, "rationale": "总价少了一位数量级且缺少对应证据，其余字段可用。"}
+      }
+    }
+  }
+}
