@@ -100,8 +100,11 @@ def deck_pdf() -> str:
     return "assets/campaign-deck.pdf"
 
 
-def fact(fid: str, path: str, expected, source: str, evidence: str, weight: int = 1) -> dict:
-    return {"id": fid, "path": path, "expected": expected, "source_refs": [source], "evidence_text": evidence, "weight": weight}
+def fact(fid: str, path: str, expected, source: str, evidence: str, weight: int = 1, critical: bool = False) -> dict:
+    item = {"id": fid, "path": path, "expected": expected, "source_refs": [source], "evidence_text": evidence, "weight": weight}
+    if critical:
+        item["critical"] = True
+    return item
 
 
 def main() -> None:
@@ -135,7 +138,7 @@ def main() -> None:
         {"id": "ui-regression", "name": "UI 前后版本回归验收", "weight": 1, "lane": "ui-review", "tags": ["multi-asset", "visual-review", "human-review", "evidence-required"], "assets": [{"path": ui_before, "media_type": "image/png"}, {"path": ui_after, "media_type": "image/png"}], "instructions": "比较前后版本，分别提取价格并识别按钮裁切。", "facts": [fact("price-before", "ui.price_before", 2999, "asset-1", "Price: ¥2,999 / month", 2), fact("price-after", "ui.price_after", 3299, "asset-2", "Price: ¥3,299 / month", 2), fact("button-clipped", "ui.button_clipped", True, "asset-2", "Button clipped: Confirm Purc...", 2)]},
         {"id": "warehouse-scene", "name": "一般现场图像理解", "weight": 1, "lane": "general-image", "tags": ["jpeg", "evidence-required"], "assets": [{"path": general, "media_type": "image/jpeg"}], "instructions": "提取区域、托盘数和安全出口状态。", "facts": [fact("zone", "warehouse.zone", "B-3", "asset-1", "Zone: B-3"), fact("pallets", "warehouse.pallet_count", 18, "asset-1", "Pallet count: 18")]},
         {"id": "product-inspection", "name": "产品铭牌与外观缺陷联合判断", "weight": 1, "lane": "physical-product", "tags": ["multi-asset", "jpeg", "visual-review", "human-review", "evidence-required"], "assets": [{"path": product_1, "media_type": "image/jpeg"}, {"path": product_2, "media_type": "image/jpeg"}], "instructions": "结合铭牌和外观图提取型号、序列号、损伤位置及严重度。", "facts": [fact("serial", "product.serial", "SN-884210", "asset-1", "Serial: SN-884210"), fact("damage", "product.damage", "left-panel-dent", "asset-2", "dent on left panel", 2)]},
-        {"id": "conflicting-dates", "name": "冲突信息与人工升级", "weight": 1, "lane": "ambiguity", "tags": ["ambiguity", "low-quality", "human-review", "evidence-required"], "assets": [{"path": ambiguity, "media_type": "image/png"}], "instructions": "判断上线日期是否可自动确定；冲突时必须升级人工。", "facts": [fact("decision", "schedule.decision", "requires-human", "asset-1", "日期冲突，需人工确认", 3)]},
+        {"id": "conflicting-dates", "name": "冲突信息与人工升级", "weight": 1, "lane": "ambiguity", "tags": ["ambiguity", "low-quality", "human-review", "evidence-required"], "assets": [{"path": ambiguity, "media_type": "image/png"}], "instructions": "判断上线日期是否可自动确定；冲突时必须升级人工。", "facts": [fact("decision", "schedule.decision", "requires-human", "asset-1", "日期冲突，需人工确认", 3, critical=True)]},
     ]
     suite = {
         "schema_version": "0.2", "kind": "benchmark-suite", "id": "enterprise-workload-v1", "name": "企业材料多模态代表性工作负载 v1", "corpus_policy": "synthetic", "output_schema": "output.schema.json",

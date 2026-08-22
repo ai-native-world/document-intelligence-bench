@@ -97,6 +97,7 @@ docbench path/to/live-suite.yaml \
 - `suite.yaml`：案例、候选、权重和可选裁判；
 - `output.schema.json`：所有候选必须遵守的输出结构；
 - `facts`：字段路径、标准值、允许误差、证据页和证据文本；
+- `facts[].critical: true`：关键事实必须正确且有证据，否则候选不具备入选资格，不能被平均分抵消；
 - `workload_profile.lanes`：按业务任务分布加权；每个 lane 内先汇总，再按 lane 权重计算总分，避免多放某类样本就改变业务权重；
 - `coverage_gates`：最低 PDF、多资产和关键标签占比；
 - `version`：候选链路的不可变版本；

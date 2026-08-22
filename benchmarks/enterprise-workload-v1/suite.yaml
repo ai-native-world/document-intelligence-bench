@@ -412,6 +412,7 @@ cases:
     - asset-1
     evidence_text: 日期冲突，需人工确认
     weight: 3
+    critical: true
 candidates:
 - id: reference-pipeline
   name: 机制参考链路

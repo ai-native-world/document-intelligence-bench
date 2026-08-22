@@ -376,6 +376,7 @@ class BenchmarkRunner:
                 "cost_known": True,
                 "latency_ms": 0.0,
                 "failures": 0,
+                "critical_failures": 0,
                 "lanes": {},
             }
             for candidate in suite["candidates"]
@@ -414,6 +415,9 @@ class BenchmarkRunner:
                 except Exception as exc:
                     raw[candidate["id"]] = {}
                     scored[candidate["id"]] = self._failed_score(str(exc))
+                    scored[candidate["id"]]["critical_failures"] = [
+                        fact["id"] for fact in case["facts"] if fact.get("critical")
+                    ]
                 measured = round((time.perf_counter() - started) * 1000, 3)
                 try:
                     latency = self._nonnegative_number(raw[candidate["id"]].get("latency_ms", measured), "latency_ms")
@@ -436,6 +440,9 @@ class BenchmarkRunner:
                     latency = measured
                     normalized_usage = {"input_tokens": None, "output_tokens": None, "cost_usd": None}
                     scored[candidate["id"]] = self._failed_score(str(exc))
+                    scored[candidate["id"]]["critical_failures"] = [
+                        fact["id"] for fact in case["facts"] if fact.get("critical")
+                    ]
                 scored[candidate["id"]]["latency_ms"] = latency
                 scored[candidate["id"]]["usage"] = normalized_usage
                 if include_outputs:
@@ -461,6 +468,7 @@ class BenchmarkRunner:
                     aggregate["cost_usd"] += item["usage"]["cost_usd"]
                 aggregate["latency_ms"] += item["latency_ms"]
                 aggregate["failures"] += int(bool(item["errors"]))
+                aggregate["critical_failures"] += len(item["critical_failures"])
                 lane_id = case.get("lane", "all")
                 lane = aggregate["lanes"].setdefault(lane_id, {"points": 0.0, "weight": 0.0})
                 lane["points"] += item["quality_score"] * case["weight"]
@@ -490,11 +498,12 @@ class BenchmarkRunner:
                 "cost_usd": round(item["cost_usd"], 8) if item["cost_known"] else None,
                 "latency_ms": round(item["latency_ms"], 3),
                 "failures": item["failures"],
+                "critical_failures": item["critical_failures"],
             })
-        ranking.sort(key=lambda item: (item["failures"] > 0, -item["quality_score"], item["candidate_id"]))
+        ranking.sort(key=lambda item: (item["critical_failures"] > 0, item["failures"] > 0, -item["quality_score"], item["candidate_id"]))
         quality_leaders = (
-            [item["candidate_id"] for item in ranking if item["failures"] == 0 and item["quality_score"] == ranking[0]["quality_score"]]
-            if ranking and ranking[0]["failures"] == 0
+            [item["candidate_id"] for item in ranking if item["failures"] == 0 and item["critical_failures"] == 0 and item["quality_score"] == ranking[0]["quality_score"]]
+            if ranking and ranking[0]["failures"] == 0 and ranking[0]["critical_failures"] == 0
             else []
         )
         return {
@@ -561,6 +570,7 @@ class BenchmarkRunner:
                 "cost_known": True,
                 "latency_ms": 0.0,
                 "failures": 0,
+                "critical_failures": 0,
                 "lanes": {},
             }
             for candidate in suite["candidates"]
@@ -606,6 +616,7 @@ class BenchmarkRunner:
                     aggregate["cost_usd"] += self._nonnegative_number(cost, "usage.cost_usd")
                 aggregate["latency_ms"] += item["latency_ms"]
                 aggregate["failures"] += int(bool(item["errors"]))
+                aggregate["critical_failures"] += len(item["critical_failures"])
                 lane_id = case.get("lane", "all")
                 lane = aggregate["lanes"].setdefault(lane_id, {"points": 0.0, "weight": 0.0})
                 lane["points"] += item["quality_score"] * case["weight"]
@@ -635,11 +646,12 @@ class BenchmarkRunner:
                 "cost_usd": round(item["cost_usd"], 8) if item["cost_known"] else None,
                 "latency_ms": round(item["latency_ms"], 3),
                 "failures": item["failures"],
+                "critical_failures": item["critical_failures"],
             })
-        ranking.sort(key=lambda item: (item["failures"] > 0, -item["quality_score"], item["candidate_id"]))
+        ranking.sort(key=lambda item: (item["critical_failures"] > 0, item["failures"] > 0, -item["quality_score"], item["candidate_id"]))
         quality_leaders = (
-            [item["candidate_id"] for item in ranking if item["failures"] == 0 and item["quality_score"] == ranking[0]["quality_score"]]
-            if ranking and ranking[0]["failures"] == 0
+            [item["candidate_id"] for item in ranking if item["failures"] == 0 and item["critical_failures"] == 0 and item["quality_score"] == ranking[0]["quality_score"]]
+            if ranking and ranking[0]["failures"] == 0 and ranking[0]["critical_failures"] == 0
             else []
         )
         return {
@@ -851,7 +863,9 @@ class BenchmarkRunner:
         validation = list(jsonschema.Draft202012Validator(output_schema).iter_errors(output))
         if validation:
             errors.extend(f"output schema: {error.message}" for error in validation)
-            return self._failed_score(*errors)
+            failed = self._failed_score(*errors)
+            failed["critical_failures"] = [fact["id"] for fact in case["facts"] if fact.get("critical")]
+            return failed
         fields = output["fields"]
         facts = case["facts"]
         total_weight = sum(fact["weight"] for fact in facts)
@@ -873,7 +887,10 @@ class BenchmarkRunner:
             present_weight += fact["weight"] if present else 0
             correct_weight += fact["weight"] if correct else 0
             grounded_weight += fact["weight"] if grounded else 0
-            fact_results.append({"fact_id": fact["id"], "present": present, "correct": correct, "grounded": grounded})
+            fact_results.append({
+                "fact_id": fact["id"], "present": present, "correct": correct, "grounded": grounded,
+                "critical": fact.get("critical", False),
+            })
         return {
             "dimensions": {
                 "factual_accuracy": round(100 * correct_weight / total_weight, 2),
@@ -882,6 +899,9 @@ class BenchmarkRunner:
                 "schema_compliance": 100.0,
             },
             "facts": fact_results,
+            "critical_failures": [
+                item["fact_id"] for item in fact_results if item["critical"] and not item["grounded"]
+            ],
             "errors": errors,
             "output_digest": _digest(output),
         }
@@ -895,6 +915,7 @@ class BenchmarkRunner:
                 "schema_compliance": 0.0,
             },
             "facts": [],
+            "critical_failures": [],
             "errors": list(errors) or ["candidate execution failed"],
             "output_digest": None,
         }

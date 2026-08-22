@@ -31,6 +31,9 @@ class BenchmarkRunnerTest(unittest.TestCase):
         degraded = next(item for item in report["ranking"] if item["candidate_id"] == "degraded-pipeline")
         self.assertEqual(degraded["quality_score"], 80.8)
         self.assertEqual(degraded["lane_scores"]["ambiguity"], 10.0)
+        self.assertEqual(degraded["critical_failures"], 1)
+        reference = next(item for item in report["ranking"] if item["candidate_id"] == "reference-pipeline")
+        self.assertEqual(reference["critical_failures"], 0)
         self.assertFalse(report["selection_ready"])
         self.assertTrue(any("synthetic corpus" in item for item in report["selection_blockers"]))
 

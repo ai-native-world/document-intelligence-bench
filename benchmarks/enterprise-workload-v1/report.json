@@ -2,8 +2,8 @@
   "schema_version": "0.1",
   "kind": "benchmark-report",
   "suite_id": "enterprise-workload-v1",
-  "suite_digest": "b75152b6c672e14db105b3e2a496a98f03d2de8c765154ca34124a1f59c714e8",
-  "generated_at": "2026-08-22T05:16:28.306045Z",
+  "suite_digest": "8f65fbb8331332a56711498113643d4318f3a6a4b33eaa6e35e406f9ee243c90",
+  "generated_at": "2026-08-22T11:06:42.381837Z",
   "quality_winner": "reference-pipeline",
   "quality_leaders": [
     "reference-pipeline"
@@ -25,7 +25,8 @@
       },
       "cost_usd": 0.12,
       "latency_ms": 12000.0,
-      "failures": 0
+      "failures": 0,
+      "critical_failures": 0
     },
     {
       "candidate_id": "degraded-pipeline",
@@ -43,7 +44,8 @@
       },
       "cost_usd": 0.12,
       "latency_ms": 12000.0,
-      "failures": 0
+      "failures": 0,
+      "critical_failures": 1
     }
   ],
   "cases": [
@@ -71,21 +73,25 @@
               "fact_id": "supplier",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "model",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "total",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "334d6174b6441948f5cdf47e45a7d2043e8773c7b9a03203a2c26f8f3264e993",
           "latency_ms": 1000.0,
@@ -109,21 +115,25 @@
               "fact_id": "supplier",
               "present": false,
               "correct": false,
-              "grounded": false
+              "grounded": false,
+              "critical": false
             },
             {
               "fact_id": "model",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "total",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "03398a023a98b7b8b12164f126b1a4029cf194c3eebe72ad6370b910670ef033",
           "latency_ms": 1000.0,
@@ -162,15 +172,18 @@
               "fact_id": "quantity",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "delivery",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "4dcb2cbe4b826e02c05c93e43a45844c3fe9b8571b8560a8e47dbe71a8d6651b",
           "latency_ms": 1000.0,
@@ -194,15 +207,18 @@
               "fact_id": "quantity",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "delivery",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "4dcb2cbe4b826e02c05c93e43a45844c3fe9b8571b8560a8e47dbe71a8d6651b",
           "latency_ms": 1000.0,
@@ -239,15 +255,18 @@
               "fact_id": "invoice-no",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "invoice-total",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "87ee58f0e99d16b071b96d83c73b08caae2f75dceac58c87799465c669551ac8",
           "latency_ms": 1000.0,
@@ -271,15 +290,18 @@
               "fact_id": "invoice-no",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "invoice-total",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "87ee58f0e99d16b071b96d83c73b08caae2f75dceac58c87799465c669551ac8",
           "latency_ms": 1000.0,
@@ -317,15 +339,18 @@
               "fact_id": "ticket",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "root-cause",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "cddcba8184b8f922e2f160d95f0eaa477c08eeed82b9250611f5ca0177b4cf4d",
           "latency_ms": 1000.0,
@@ -349,15 +374,18 @@
               "fact_id": "ticket",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "root-cause",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "cddcba8184b8f922e2f160d95f0eaa477c08eeed82b9250611f5ca0177b4cf4d",
           "latency_ms": 1000.0,
@@ -395,21 +423,25 @@
               "fact_id": "warranty",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "sla",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "approval",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "7341192903f81e9b0a1bdf72d63f0d8d2cc5349f643ca377b0c26d9cb638ef4c",
           "latency_ms": 1000.0,
@@ -433,21 +465,25 @@
               "fact_id": "warranty",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "sla",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "approval",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "7341192903f81e9b0a1bdf72d63f0d8d2cc5349f643ca377b0c26d9cb638ef4c",
           "latency_ms": 1000.0,
@@ -484,15 +520,18 @@
               "fact_id": "top-region",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "total-sales",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "a8f746ac88e0293dacccead319d6dff0b9101d1d4390572f5a8e091a70880746",
           "latency_ms": 1000.0,
@@ -516,15 +555,18 @@
               "fact_id": "top-region",
               "present": false,
               "correct": false,
-              "grounded": false
+              "grounded": false,
+              "critical": false
             },
             {
               "fact_id": "total-sales",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "68bfdc48d26e0dbfa2f35a3eef9bd25f3a148d703faad89f5b22d1dda4664921",
           "latency_ms": 1000.0,
@@ -560,15 +602,18 @@
               "fact_id": "trigger",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "normal-output",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "cc45b8e1ce74ec4a0bb2f3f82df2bdcff8948d3bd1460b5bc700706b03292e40",
           "latency_ms": 1000.0,
@@ -592,15 +637,18 @@
               "fact_id": "trigger",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "normal-output",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "cc45b8e1ce74ec4a0bb2f3f82df2bdcff8948d3bd1460b5bc700706b03292e40",
           "latency_ms": 1000.0,
@@ -639,21 +687,25 @@
               "fact_id": "price-page-3",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "price-page-4",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "cta-contrast",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "247cb6ac60fc4abb6158d5513c56a3233996f3e8f1190071cd397646a490b191",
           "latency_ms": 1000.0,
@@ -677,21 +729,25 @@
               "fact_id": "price-page-3",
               "present": false,
               "correct": false,
-              "grounded": false
+              "grounded": false,
+              "critical": false
             },
             {
               "fact_id": "price-page-4",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "cta-contrast",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "858e19c5f02b897f7a402224ea964a9b1b396c7cea71fe3dc8616274c1f5c30c",
           "latency_ms": 1000.0,
@@ -729,21 +785,25 @@
               "fact_id": "price-before",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "price-after",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "button-clipped",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "06061b80168faef2cfe72046fb159e9d0c8b8239d806683f55d9f152b914ee0a",
           "latency_ms": 1000.0,
@@ -767,21 +827,25 @@
               "fact_id": "price-before",
               "present": false,
               "correct": false,
-              "grounded": false
+              "grounded": false,
+              "critical": false
             },
             {
               "fact_id": "price-after",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "button-clipped",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "53907c8325e3daffb02f054609ecdfb5d9a568ee8b3ef8e61364ffc79806624a",
           "latency_ms": 1000.0,
@@ -817,15 +881,18 @@
               "fact_id": "zone",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "pallets",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "24e633c84c262ff946e60c82f8ba5b8ba35a4aabcefebdbd2c40c862ac7acdd1",
           "latency_ms": 1000.0,
@@ -849,15 +916,18 @@
               "fact_id": "zone",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "pallets",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "24e633c84c262ff946e60c82f8ba5b8ba35a4aabcefebdbd2c40c862ac7acdd1",
           "latency_ms": 1000.0,
@@ -896,15 +966,18 @@
               "fact_id": "serial",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             },
             {
               "fact_id": "damage",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "59eda7afff609338cd602da2f59db8006725b2e387faecbf071df9a634ce368c",
           "latency_ms": 1000.0,
@@ -928,15 +1001,18 @@
               "fact_id": "serial",
               "present": false,
               "correct": false,
-              "grounded": false
+              "grounded": false,
+              "critical": false
             },
             {
               "fact_id": "damage",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": false
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "ccb0c132b4ecd0bc81b46ebe6f5987da4e307152916618ca199c30dbb05e52ec",
           "latency_ms": 1000.0,
@@ -974,9 +1050,11 @@
               "fact_id": "decision",
               "present": true,
               "correct": true,
-              "grounded": true
+              "grounded": true,
+              "critical": true
             }
           ],
+          "critical_failures": [],
           "errors": [],
           "output_digest": "65e3af7b94cb3e827dc702c3cccb53d742f3c070f4e297becad4ca9d0809b391",
           "latency_ms": 1000.0,
@@ -1000,8 +1078,12 @@
               "fact_id": "decision",
               "present": false,
               "correct": false,
-              "grounded": false
+              "grounded": false,
+              "critical": true
             }
+          ],
+          "critical_failures": [
+            "decision"
           ],
           "errors": [],
           "output_digest": "e384df29bb538e67534dafadd14b4fea9949769dbad3800c369287ff50959c6e",
