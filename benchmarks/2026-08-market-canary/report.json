@@ -1,10 +1,9 @@
 {
   "schema_version": "0.1",
   "kind": "benchmark-report",
-  "suite_id": "market-vision-canary-2026-08",
-  "suite_digest": "a938ff4840d78124dee65e7b912cdd2f8dbb8f5721830234a632535dc0ea4231",
-  "generated_at": "2026-08-22T03:04:36.793077Z",
-  "source_report_digest": "cbbf1b746e01a2595dc67666520bc6b458086e5f652d51051dd2f8dabaf7fe0f",
+  "suite_id": "market-vision-canary-2026-08-captured",
+  "suite_digest": "d9d8bc64550e9d58c5ce66110c6ccca1d819640578459b400754488fb40af2b1",
+  "generated_at": "2026-08-22T03:16:18.719627Z",
   "quality_winner": null,
   "quality_leaders": [
     "gemini-35-flash",
@@ -56,6 +55,15 @@
       "quality_score": 94.17,
       "cost_usd": null,
       "latency_ms": 20542.956,
+      "failures": 0
+    },
+    {
+      "candidate_id": "macos-vision-deepseek-v4-pro",
+      "name": "macOS Vision OCR + DeepSeek V4 Pro",
+      "version": "macos-vision+deepseek-v4-pro@2026-08-22",
+      "quality_score": 91.0,
+      "cost_usd": null,
+      "latency_ms": 74739.148,
       "failures": 0
     },
     {
@@ -337,6 +345,50 @@
           },
           "quality_score": 100.0,
           "candidate_id": "gemini-35-flash"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "product-model",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "quantity",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-price",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "delivery-date",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "3356b20fec6b5dd964ee72c4c299d9dd61519991018eb1601cd9ca46513201ae",
+          "latency_ms": 28374.193,
+          "usage": {
+            "input_tokens": 808,
+            "output_tokens": 2032,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "macos-vision-deepseek-v4-pro"
         }
       ]
     },
@@ -644,6 +696,56 @@
           },
           "quality_score": 100.0,
           "candidate_id": "gemini-35-flash"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "batch-id",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "defect-rate",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "inspection-result",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "exception-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "sla-hours",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "9d1dfa22413fbf020060e33c4854324028329ab44bd00d1c12778718460225d4",
+          "latency_ms": 14139.291,
+          "usage": {
+            "input_tokens": 866,
+            "output_tokens": 1107,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "macos-vision-deepseek-v4-pro"
         }
       ]
     },
@@ -879,6 +981,44 @@
           },
           "quality_score": 100.0,
           "candidate_id": "gemini-35-flash"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 60.0,
+            "completeness": 60.0,
+            "evidence_grounding": 60.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "top-region",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "top-value",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "total-value",
+              "present": false,
+              "correct": false,
+              "grounded": false
+            }
+          ],
+          "errors": [],
+          "output_digest": "7fd2eef50cecb1baa911bc861db01f0f5d6ebbb5c6866f2e15329cbc9f84cd02",
+          "latency_ms": 14208.376,
+          "usage": {
+            "input_tokens": 756,
+            "output_tokens": 786,
+            "cost_usd": null
+          },
+          "quality_score": 64.0,
+          "candidate_id": "macos-vision-deepseek-v4-pro"
         }
       ]
     },
@@ -1150,9 +1290,53 @@
           },
           "quality_score": 100.0,
           "candidate_id": "gemini-35-flash"
+        },
+        {
+          "dimensions": {
+            "factual_accuracy": 100.0,
+            "completeness": 100.0,
+            "evidence_grounding": 100.0,
+            "schema_compliance": 100.0
+          },
+          "facts": [
+            {
+              "fact_id": "exception-trigger",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "process-owner",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "process-sla",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            },
+            {
+              "fact_id": "normal-output",
+              "present": true,
+              "correct": true,
+              "grounded": true
+            }
+          ],
+          "errors": [],
+          "output_digest": "1c5a2bdb66c055aaa6ccc29e75f506b11ebdb8b1ae26dda00736e02632d3c222",
+          "latency_ms": 18017.288,
+          "usage": {
+            "input_tokens": 796,
+            "output_tokens": 1280,
+            "cost_usd": null
+          },
+          "quality_score": 100.0,
+          "candidate_id": "macos-vision-deepseek-v4-pro"
         }
       ]
     }
   ],
-  "selection_note": "质量分不混入成本与时延；本报告由保留的原始输出离线重评分。"
+  "selection_note": "质量分不混入成本与时延；采购或路由决策应在质量门槛通过后比较效率。"
 }

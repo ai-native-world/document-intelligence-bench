@@ -23,4 +23,4 @@ classifiers = [
 docbench = "docbench.cli:main"
 
 [tool.setuptools.package-data]
-docbench = ["benchmark-suite.schema.json"]
+docbench = ["benchmark-suite.schema.json", "macos_vision_ocr.swift"]

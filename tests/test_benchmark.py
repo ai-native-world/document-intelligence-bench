@@ -7,8 +7,10 @@ import shutil
 import tempfile
 import threading
 import unittest
+from types import SimpleNamespace
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
+from unittest.mock import patch
 
 import yaml
 
@@ -250,6 +252,38 @@ class BenchmarkRunnerTest(unittest.TestCase):
                 os.environ.pop("DOCBENCH_TEST_KEY", None)
             else:
                 os.environ["DOCBENCH_TEST_KEY"] = previous
+
+    def test_macos_vision_pipeline_uses_ocr_text_without_answer_leakage(self) -> None:
+        registry = BenchmarkRegistry()
+        candidate = {
+            "id": "ocr-text",
+            "version": "ocr-text@1",
+            "endpoint": "macos-vision-openai://test",
+            "base_url": "https://example.invalid/v1",
+            "api_key_env": "DOCBENCH_TEST_KEY",
+            "model": "text-model",
+        }
+        payload = {
+            "instructions": "提取型号",
+            "asset": {
+                "media_type": "image/png",
+                "data_base64": "aW1hZ2U=",
+            },
+        }
+        context = {
+            "candidate": candidate,
+            "timeout_seconds": 30,
+            "fact_contract": [{"fact_id": "product-model", "path": "order.product_model", "source_refs": ["page-1"]}],
+            "output_schema": {"type": "object"},
+        }
+        with patch("docbench.benchmark.subprocess.run", return_value=SimpleNamespace(returncode=0, stdout="型号：MX-420\n")):
+            with patch.object(BenchmarkRegistry, "_openai_request", return_value={"model_version": "ocr-text@1"}) as request:
+                registry.candidate(candidate["endpoint"], payload, context)
+        body = request.call_args.args[0]
+        prompt = body["messages"][1]["content"]
+        self.assertIn("型号：MX-420", prompt)
+        self.assertNotIn("expected", prompt)
+        self.assertNotIn("evidence_text", prompt)
 
     def mutated_suite(self):
         class TemporarySuite:

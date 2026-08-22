@@ -103,7 +103,7 @@ docbench path/to/live-suite.yaml \
 - 合成样本只验证机制；真实选型需要客户授权语料、人类标准答案和复核一致性。
 - 本项目不给模型厂商做静态排名，结论只对具体 suite、模型版本和调用参数有效。
 
-2026-08-22 的首轮市场 canary 使用 4 份合成中文材料、6 个当前模型和 24 次真实 API 调用。四个候选质量并列，不能据此直接替换生产模型；完整结果和限制见 [benchmark results](benchmarks/2026-08-market-canary/RESULTS.md)。
+2026-08-22 的首轮市场 canary 使用 4 份合成中文材料，比较 6 个多模态模型与 1 条 OCR+文本模型链路，共 28 次真实 API 调用。四个候选质量并列，不能据此直接替换生产模型；完整结果和限制见 [benchmark results](benchmarks/2026-08-market-canary/RESULTS.md)。
 
 ## License
 

@@ -1,0 +1,168 @@
+{
+  "cases": {
+    "equipment-order": {
+      "model_version": "deepseek-v4-flash-vision-exp@2026-08-21",
+      "output": {
+        "fields": {
+          "order": {
+            "product_model": "MX-420",
+            "quantity": 12,
+            "total_price_cny": 318000,
+            "delivery_date": "2026-09-15"
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "product-model",
+            "source_ref": "page-1",
+            "quote": "MX-420"
+          },
+          {
+            "fact_id": "quantity",
+            "source_ref": "page-1",
+            "quote": "12 台"
+          },
+          {
+            "fact_id": "total-price",
+            "source_ref": "page-1",
+            "quote": "人民币 318,000 元"
+          },
+          {
+            "fact_id": "delivery-date",
+            "source_ref": "page-1",
+            "quote": "2026年9月15日"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1091,
+        "output_tokens": 520
+      },
+      "latency_ms": 5241.264
+    },
+    "inspection-report": {
+      "model_version": "deepseek-v4-flash-vision-exp@2026-08-21",
+      "output": {
+        "fields": {
+          "inspection": {
+            "batch_id": "B-260817",
+            "defect_rate": 0.02125,
+            "result": "不合格",
+            "exception_owner": "质量经理",
+            "sla_hours": 4
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "batch-id",
+            "source_ref": "page-1",
+            "quote": "批次号： B-260817"
+          },
+          {
+            "fact_id": "defect-rate",
+            "source_ref": "page-1",
+            "quote": "缺陷率： 2.125%"
+          },
+          {
+            "fact_id": "inspection-result",
+            "source_ref": "page-1",
+            "quote": "判定： 不合格"
+          },
+          {
+            "fact_id": "exception-owner",
+            "source_ref": "page-1",
+            "quote": "处置：异常批次转质量经理复核（SLA 4 小时）"
+          },
+          {
+            "fact_id": "sla-hours",
+            "source_ref": "page-1",
+            "quote": "处置：异常批次转质量经理复核（SLA 4 小时）"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1151,
+        "output_tokens": 472
+      },
+      "latency_ms": 4582.865
+    },
+    "regional-sales": {
+      "model_version": "deepseek-v4-flash-vision-exp@2026-08-21",
+      "output": {
+        "fields": {
+          "sales": {
+            "top_region": "华东",
+            "top_value": 92,
+            "total_value": 290
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "top-region",
+            "source_ref": "page-1",
+            "quote": "最高：华东 92 万元"
+          },
+          {
+            "fact_id": "top-value",
+            "source_ref": "page-1",
+            "quote": "92"
+          },
+          {
+            "fact_id": "total-value",
+            "source_ref": "page-1",
+            "quote": "92+76+68+54=290"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1059,
+        "output_tokens": 185
+      },
+      "latency_ms": 2387.783
+    },
+    "analysis-process": {
+      "model_version": "deepseek-v4-flash-vision-exp@2026-08-21",
+      "output": {
+        "fields": {
+          "process": {
+            "exception_trigger": "关键字段缺失？",
+            "exception_owner": "业务顾问补录",
+            "sla_hours": 4,
+            "normal_output": "生成客户调研摘要"
+          }
+        },
+        "evidence": [
+          {
+            "fact_id": "exception-trigger",
+            "source_ref": "page-1",
+            "quote": "关键字段缺失？"
+          },
+          {
+            "fact_id": "process-owner",
+            "source_ref": "page-1",
+            "quote": "业务顾问补录"
+          },
+          {
+            "fact_id": "process-sla",
+            "source_ref": "page-1",
+            "quote": "SLA 4 小时"
+          },
+          {
+            "fact_id": "normal-output",
+            "source_ref": "page-1",
+            "quote": "生成客户调研摘要"
+          }
+        ],
+        "uncertainties": []
+      },
+      "usage": {
+        "input_tokens": 1103,
+        "output_tokens": 347
+      },
+      "latency_ms": 3667.593
+    }
+  }
+}

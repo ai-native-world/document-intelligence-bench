@@ -1,0 +1,191 @@
+schema_version: '0.1'
+kind: benchmark-suite
+id: market-vision-canary-2026-08-captured
+name: 多模态客户材料解析市场模型小样本（冻结响应）
+output_schema: output.schema.json
+cases:
+- id: equipment-order
+  name: 设备采购订单
+  weight: 1
+  asset: assets/equipment-order.png
+  media_type: image/png
+  instructions: 提取型号、数量、含税总价和交付日期。fields 必须使用 order.product_model、order.quantity、order.total_price_cny、order.delivery_date。
+  facts:
+  - id: product-model
+    path: order.product_model
+    expected: MX-420
+    source_refs:
+    - page-1
+    evidence_text: 型号：MX-420
+    weight: 2
+  - id: quantity
+    path: order.quantity
+    expected: 12
+    source_refs:
+    - page-1
+    evidence_text: 数量：12 台
+    weight: 1
+  - id: total-price
+    path: order.total_price_cny
+    expected: 318000
+    numeric_tolerance: 0.01
+    source_refs:
+    - page-1
+    evidence_text: 含税总价：人民币 318,000 元
+    weight: 2
+  - id: delivery-date
+    path: order.delivery_date
+    expected: '2026-09-15'
+    source_refs:
+    - page-1
+    evidence_text: 交付日期：2026 年 9 月 15 日
+    weight: 2
+- id: inspection-report
+  name: 来料检验与判定
+  weight: 1
+  asset: assets/inspection-report.png
+  media_type: image/png
+  instructions: 提取批次号、缺陷率、判定、异常处置责任人和 SLA 小时。缺陷率必须输出为 0 到 1 的小数。fields 使用 inspection.batch_id、inspection.defect_rate、inspection.result、inspection.exception_owner、inspection.sla_hours。
+  facts:
+  - id: batch-id
+    path: inspection.batch_id
+    expected: B-260817
+    source_refs:
+    - page-1
+    evidence_text: 批次号：B-260817
+    weight: 1
+  - id: defect-rate
+    path: inspection.defect_rate
+    expected: 0.02125
+    numeric_tolerance: 1.0e-05
+    source_refs:
+    - page-1
+    evidence_text: 缺陷率：2.125%
+    weight: 2
+  - id: inspection-result
+    path: inspection.result
+    expected: 不合格
+    source_refs:
+    - page-1
+    evidence_text: 判定：不合格
+    weight: 2
+  - id: exception-owner
+    path: inspection.exception_owner
+    expected: 质量经理
+    source_refs:
+    - page-1
+    evidence_text: 异常批次转质量经理复核
+    weight: 1
+  - id: sla-hours
+    path: inspection.sla_hours
+    expected: 4
+    source_refs:
+    - page-1
+    evidence_text: SLA 4 小时
+    weight: 1
+- id: regional-sales
+  name: 区域销售图表
+  weight: 1
+  asset: assets/regional-sales-chart.png
+  media_type: image/png
+  instructions: 提取最高区域、最高销售额和四个区域合计销售额（万元）。fields 使用 sales.top_region、sales.top_value、sales.total_value。
+  facts:
+  - id: top-region
+    path: sales.top_region
+    expected: 华东
+    source_refs:
+    - page-1
+    evidence_text: 最高：华东 92 万元
+    weight: 2
+  - id: top-value
+    path: sales.top_value
+    expected: 92
+    source_refs:
+    - page-1
+    evidence_text: 最高：华东 92 万元
+    weight: 1
+  - id: total-value
+    path: sales.total_value
+    expected: 290
+    source_refs:
+    - page-1
+    evidence_text: 华东 92
+    weight: 2
+- id: analysis-process
+  name: 材料解析流程图
+  weight: 1
+  asset: assets/analysis-process.png
+  media_type: image/png
+  instructions: 读取流程图，提取异常触发条件、异常责任人、SLA 小时和正常路径输出。fields 使用 process.exception_trigger、process.exception_owner、process.sla_hours、process.normal_output。
+  facts:
+  - id: exception-trigger
+    path: process.exception_trigger
+    expected: 关键字段缺失
+    source_refs:
+    - page-1
+    evidence_text: 关键字段缺失？
+    weight: 2
+  - id: process-owner
+    path: process.exception_owner
+    expected: 业务顾问
+    source_refs:
+    - page-1
+    evidence_text: 业务顾问补录
+    weight: 1
+  - id: process-sla
+    path: process.sla_hours
+    expected: 4
+    source_refs:
+    - page-1
+    evidence_text: SLA 4 小时
+    weight: 1
+  - id: normal-output
+    path: process.normal_output
+    expected: 生成客户调研摘要
+    source_refs:
+    - page-1
+    evidence_text: 生成客户调研摘要
+    weight: 2
+candidates:
+- id: deepseek-vision-exp
+  name: DeepSeek V4 Flash Vision Exp
+  version: deepseek-v4-flash-vision-exp@2026-08-21
+  endpoint: fixture://captures/deepseek-vision-exp.json
+- id: qwen-vl-plus
+  name: Qwen3 VL Plus
+  version: qwen3-vl-plus@2026-08-22
+  endpoint: fixture://captures/qwen-vl-plus.json
+- id: qwen-35-plus
+  name: Qwen3.5 Plus
+  version: qwen3.5-plus@2026-08-22
+  endpoint: fixture://captures/qwen-35-plus.json
+- id: qwen-36-plus
+  name: Qwen3.6 Plus
+  version: qwen3.6-plus@2026-08-22
+  endpoint: fixture://captures/qwen-36-plus.json
+- id: kimi-k25
+  name: Kimi K2.5 via Model Studio
+  version: kimi-k2.5@2026-08-22
+  endpoint: fixture://captures/kimi-k25.json
+- id: gemini-35-flash
+  name: Gemini 3.5 Flash
+  version: gemini-3.5-flash@2026-08-22
+  endpoint: fixture://captures/gemini-35-flash.json
+- id: macos-vision-deepseek-v4-pro
+  name: macOS Vision OCR + DeepSeek V4 Pro
+  version: macos-vision+deepseek-v4-pro@2026-08-22
+  endpoint: fixture://captures/macos-vision-deepseek-v4-pro.json
+rubric:
+  dimensions:
+  - id: factual_accuracy
+    name: 事实准确性
+    weight: 0.45
+  - id: completeness
+    name: 信息完整性
+    weight: 0.2
+  - id: evidence_grounding
+    name: 证据可追溯性
+    weight: 0.25
+  - id: schema_compliance
+    name: 结构合规性
+    weight: 0.1

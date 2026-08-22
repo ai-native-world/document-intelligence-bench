@@ -79,7 +79,7 @@
         "id": { "$ref": "#/$defs/identifier" },
         "name": { "$ref": "#/$defs/human_text" },
         "version": { "type": "string", "minLength": 1, "maxLength": 200 },
-        "endpoint": { "type": "string", "pattern": "^(?:https?://|fixture://|openai://).+" },
+        "endpoint": { "type": "string", "pattern": "^(?:https?://|fixture://|openai://|macos-vision-openai://).+" },
         "base_url": { "type": "string", "pattern": "^https?://.+" },
         "api_key_env": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]+$" },
         "model": { "type": "string", "minLength": 1, "maxLength": 200 },

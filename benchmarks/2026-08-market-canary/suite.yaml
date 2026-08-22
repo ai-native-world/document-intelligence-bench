@@ -109,6 +109,16 @@ candidates:
     accepted_observed_models: [gemini-3.5-flash]
     max_tokens: 4096
     timeout_seconds: 180
+  - id: macos-vision-deepseek-v4-pro
+    name: macOS Vision OCR + DeepSeek V4 Pro
+    version: macos-vision+deepseek-v4-pro@2026-08-22
+    endpoint: macos-vision-openai://deepseek
+    base_url: https://api.deepseek.com/v1
+    api_key_env: DEEPSEEK_API_KEY
+    model: deepseek-v4-pro
+    accepted_observed_models: [deepseek-v4-pro]
+    max_tokens: 4096
+    timeout_seconds: 180
 rubric:
   dimensions:
     - {id: factual_accuracy, name: 事实准确性, weight: 0.45}
