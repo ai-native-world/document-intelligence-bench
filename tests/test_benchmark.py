@@ -37,6 +37,37 @@ class BenchmarkRunnerTest(unittest.TestCase):
         self.assertFalse(report["selection_ready"])
         self.assertTrue(any("synthetic corpus" in item for item in report["selection_blockers"]))
 
+    def test_critical_gate_beats_a_higher_average_score(self) -> None:
+        reference_cases = json.loads(
+            (WORKLOAD_SUITE.parent / "captures/reference-pipeline.json").read_text(encoding="utf-8")
+        )["cases"]
+        degraded_cases = json.loads(
+            (WORKLOAD_SUITE.parent / "captures/degraded-pipeline.json").read_text(encoding="utf-8")
+        )["cases"]
+        registry = BenchmarkRegistry()
+
+        def eligible_but_lower(_payload: dict, context: dict) -> dict:
+            source = reference_cases if context["case_id"] == "conflicting-dates" else degraded_cases
+            response = copy.deepcopy(source[context["case_id"]])
+            response["model_version"] = "synthetic-reference@1"
+            return response
+
+        def higher_but_ineligible(_payload: dict, context: dict) -> dict:
+            source = degraded_cases if context["case_id"] == "conflicting-dates" else reference_cases
+            response = copy.deepcopy(source[context["case_id"]])
+            response["model_version"] = "synthetic-degraded@1"
+            return response
+
+        registry.register_candidate("fixture://captures/reference-pipeline.json", eligible_but_lower)
+        registry.register_candidate("fixture://captures/degraded-pipeline.json", higher_but_ineligible)
+        report = BenchmarkRunner(ROOT, registry).run(WORKLOAD_SUITE)
+        eligible, ineligible = report["ranking"]
+        self.assertEqual(eligible["candidate_id"], "reference-pipeline")
+        self.assertLess(eligible["quality_score"], ineligible["quality_score"])
+        self.assertEqual(eligible["critical_failures"], 0)
+        self.assertGreater(ineligible["critical_failures"], 0)
+        self.assertEqual(report["quality_winner"], "reference-pipeline")
+
     def test_workload_coverage_gate_and_secondary_asset_escape_fail_closed(self) -> None:
         with self.mutated_workload_suite() as (path, suite):
             suite["workload_profile"]["coverage_gates"]["min_pdf_case_share"] = 0.5
